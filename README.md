@@ -1,2 +1,2 @@
-# gaduos-project
+# graduos-project
 New improved moodle
