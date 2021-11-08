@@ -80,8 +80,13 @@ WSGI_APPLICATION = 'graduos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+<<<<<<< HEAD
         'NAME': 'graduos',
         'USER': 'sergiublaj',
+=======
+        'NAME': 'graduos_db',
+        'USER': 'graduos_admin',
+>>>>>>> 87ca4fb (added authenticate functions)
         'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '5432'
