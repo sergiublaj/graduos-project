@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Login{% endblock title %}
+{% block content %}
+
+<div class="imageSignIn">
+    <img src = {% static 'img/college.png' %} class="borderImg">
+</div>
+
+{% include 'partials/_alerts.html' %}
+<form action="{% url 'login' %}" method="POST">
+{% csrf_token %}
+<table class="logIn">
+    <tr>
+      <td><img src = {% static 'img/user.png' %} class="userImg"></td>
+      <td class="input"><input name="username" type="text" placeholder="Enter Username"></td>
+    </tr>
+    <tr>
+      <td><img src = {% static 'img/pass.png' %} class="passImg"></td>
+      <td class="input"><input name="password" type="password" placeholder="Enter Password"></td>
+    </tr>
+  </table>
+<input type="submit" value="Login">
+</form>
+{% endblock %}
