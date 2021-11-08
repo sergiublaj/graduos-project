@@ -2,27 +2,27 @@ from django.contrib import messages, auth
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from users.models import Person, Student, Professor
-from courses.models import Course, Student_Course, Professor_Course
+from courses.models import Course
 
 def register(request):
+   if request.method != 'POST':
+      return render(request, 'users/register.html')
+   
    user = register_user(request)
    
-   person = register_person(request, user)
+   # person = register_person(request, user)
    
-   is_student = request.POST['is_student']
-   if is_student == True:
-      register_student(request, person)
-   else:
-      register_professor(request, person)   
+   # is_student = request.POST['is_student']
+   # if is_student == True:
+   #    register_student(request, person)
+   # else:
+   #    register_professor(request, person)   
       
    messages.success(request, 'Successfully registered!')
    return redirect('login')
    
    
 def register_user(request):
-   if request.method != 'POST':
-      return render(request, 'accounts/register.html')
-   
    first_name = request.POST['first_name'].capitalize()
    last_name = request.POST['last_name'].capitalize()
    username = request.POST['username']
@@ -49,7 +49,7 @@ def register_user(request):
    
    return user
 
-def register_person(request, user):
+def register_person(request, user):   
    photo = request.POST['photo']
    phone = request.POST['phone']
    country = request.POST['country']
@@ -57,12 +57,14 @@ def register_person(request, user):
    birth_date = request.POST['birth_date']
    sex = request.POST['sex']
    
+   print(user)
+   
    person = Person.objects.create(user = user, photo = photo, phone = phone, country = country, address = address, birth_date = birth_date, sex = sex)
    person.save()
    
    return person
 
-def register_student(request, person):
+def register_student(request, person):   
    identification_no = request.POST['identification_no']
    university = request.POST['university']
    faculty = request.POST['faculty']
@@ -84,7 +86,7 @@ def register_professor(request, person):
    
 def login(request):
    if request.method != 'POST':
-      return render(request, 'accounts/login.html')
+      return render(request, 'users/login.html')
    
    username = request.POST['username']
    password = request.POST['password']
@@ -110,16 +112,16 @@ def dashboard(request):
    student = Student.objects.filter(person = person)
    professor = Professor.objects.filter(person = person)
    
-   user_courses = None
+   courses = None
    if student is None:
-      user_courses = Course.objects.filter(instructors__ = professor)
+      courses = Course.objects.filter(professors = professor)
    else:
-      user_courses = Course.objects.filter(coursants__ = student)
+      courses = Course.objects.filter(students = student)
       
    context = {
-      'courses': user_courses
+      'courses': courses
    }
    
-   return render(request, 'accounts/dashboard.html', context)
+   return render(request, 'users/dashboard.html', context)
 
 

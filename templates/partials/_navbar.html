@@ -1,0 +1,37 @@
+{% load static %}
+
+<nav>
+	<ul class="topnav" id="dropdownClick">
+		<li><a href = {% url 'index' %}>Home</a></li>
+		{% if user.is_authenticated %}
+			<li>
+				<a href="{% url 'dashboard' %}">Welcome, {{user.username}} (dashboard)</a>
+			</li>
+		{% endif %}
+		<li><a href = {% url 'contact' %}>Contact</a></li>
+		<li><a href = {% url 'about' %}>About</a></li>
+		{% if user.is_authenticated %}
+			<li>
+				<a href="javascript:{document.getElementById('logout').submit()}">
+					<i class="fas fa-sign-out-alt"> </i> Logout
+				</a>
+				<form action="{% url 'logout' %}" method="POST" id="logout">
+					{% csrf_token %}
+					<input type="hidden">
+				</form>
+			</li>
+		{% else %}
+			<li>
+				<a href="{% url 'register' %}">
+					<i class="fas fa-user-plus"> </i> Register
+				</a>
+			</li>
+			<li>
+				<a href="{% url 'login' %}">
+					<i class="fas fa-sign-in-alt"> </i> Login
+				</a>
+			</li>
+		{% endif %}
+		<li class="dropdownIcon"><a href="javascript:void(0)" onclick="dropdownMenu()">&#9776;</a></li>
+	</ul>
+</nav>
