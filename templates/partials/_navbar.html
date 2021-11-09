@@ -11,7 +11,7 @@
 		<li><a href = {% url 'contact' %}>Contact</a></li>
 		<li><a href = {% url 'about' %}>About</a></li>
 		{% if user.is_authenticated %}
-			<li>
+			<li class = "topnav-right">
 				<a href="javascript:{document.getElementById('logout').submit()}">
 					<i class="fas fa-sign-out-alt"> </i> Logout
 				</a>
@@ -21,12 +21,12 @@
 				</form>
 			</li>
 		{% else %}
-			<li>
+			<li class = "topnav-right">
 				<a href="{% url 'register' %}">
 					<i class="fas fa-user-plus"> </i> Register
 				</a>
 			</li>
-			<li>
+			<li class = "topnav-right">
 				<a href="{% url 'login' %}">
 					<i class="fas fa-sign-in-alt"> </i> Login
 				</a>

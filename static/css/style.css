@@ -148,25 +148,7 @@ table.logIn {
    padding: 1px; 
 }
 
-.logIn input{
-   background: transparent;
-   border: 0;
-   color: #f2f2f2;
-   font-size: 20px;
-   height: 30px;
-   line-height: 30px;
-   outline: none !important;
-   width: 100%;
-   text-align: center;
-}
-
-#submit {
-   color: #707075;
-   margin-top: 30px;
-   transition: color 300ms;
-   text-align: left;
-}
-
-#submit:focus {
-   color: #f2f2f2;
+.submit {
+   margin-left: 50%;
+   font-size: 30px;
 }
