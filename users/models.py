@@ -17,6 +17,7 @@ class Person(models.Model):
    birth_date = models.DateField(default = date.today() - timedelta(days = 18 * 365))
    sex = models.CharField(default = 'F', max_length = 1)
   
+<<<<<<< HEAD
    def __str__(self):
 <<<<<<< HEAD
       return self.User.username
@@ -26,6 +27,8 @@ class Student(models.Model):
 =======
       return self.user.username
    
+=======
+>>>>>>> 935bbd7 (fixed register bug)
 class Student(models.Model):
    person = models.ForeignKey(Person, on_delete = models.CASCADE, null = True)
 >>>>>>> 87ca4fb (added authenticate functions)
@@ -34,6 +37,7 @@ class Student(models.Model):
    faculty = models.CharField(max_length = 64)
    study_level = models.CharField(default = "Bachelor", max_length = 64)
    study_year = models.IntegerField(default = 1)
+<<<<<<< HEAD
 <<<<<<< HEAD
    final_grade = models.DecimalField(max_digits = 4, decimal_places = 2)
    accumulated_credits = models.IntegerField()
@@ -58,14 +62,23 @@ class Professor(models.Model):
    
    def __str__(self):
       return self.person.user.username
+=======
+   final_grade = models.DecimalField(max_digits = 4, decimal_places = 2, default = 0, blank = True)
+   accumulated_credits = models.IntegerField(default = 0, blank = True)
+   outstanding_credits = models.IntegerField(default = 0, blank = True)
+>>>>>>> 935bbd7 (fixed register bug)
    
 class Professor(models.Model):
    person = models.ForeignKey(Person, on_delete = models.CASCADE, null = True)
    department = models.CharField(max_length = 128)
    rank = models.CharField(max_length = 128)
    office_address = models.CharField(max_length = 128)
+<<<<<<< HEAD
    website = models.URLField(blank = True)
   
    def __str__(self):
       return self.person.user.username
 >>>>>>> 87ca4fb (added authenticate functions)
+=======
+   website = models.URLField(blank = True)
+>>>>>>> 935bbd7 (fixed register bug)

@@ -13,19 +13,19 @@ def register(request):
    if request.method != 'POST':
       return render(request, 'users/register.html')
    
-   user = register_user(request)
+   register_user(request)
    
-   # person = register_person(request, user)
+   register_person(request)
    
-   # is_student = request.POST['is_student']
-   # if is_student == True:
-   #    register_student(request, person)
-   # else:
-   #    register_professor(request, person)   
+   is_student = request.POST['is_student']
+
+   if is_student == 'True': 
+      register_student(request)
+   else:
+      register_professor(request)   
       
-   messages.success(request, 'Successfully registered!')
+   # messages.success(request, 'Successfully registered!')
    return redirect('login')
-   
    
 def register_user(request):
    first_name = request.POST['first_name'].capitalize()
@@ -35,26 +35,25 @@ def register_user(request):
    password = request.POST['password']
    password2 = request.POST['password2']
    
-   allUsers = User.objects
+   allUsers = User.objects.all()
    
    if password != password2:
-      messages.error(request, 'Passwords do not match!')
+      # messages.error(request, 'Passwords do not match!')
       return redirect('register')
 
    if allUsers.filter(username = username).exists():
-      messages.error(request, 'Username already taken!')
+      # messages.error(request, 'Username already taken!')
       return redirect('register')
    
    if allUsers.filter(email = email).exists():
-      messages.error(request, 'Email already taken!')
+      # messages.error(request, 'Email already taken!')
       return redirect('register')      
    
    user = User.objects.create(first_name = first_name, last_name = last_name, username = username, email = email, password = password)
    user.save()
-   
-   return user
 
-def register_person(request, user):   
+def register_person(request): 
+   user = User.objects.get(username = request.POST['username'])
    photo = request.POST['photo']
    phone = request.POST['phone']
    country = request.POST['country']
@@ -62,25 +61,22 @@ def register_person(request, user):
    birth_date = request.POST['birth_date']
    sex = request.POST['sex']
    
-   print(user)
-   
    person = Person.objects.create(user = user, photo = photo, phone = phone, country = country, address = address, birth_date = birth_date, sex = sex)
    person.save()
-   
-   return person
 
-def register_student(request, person):   
+def register_student(request):   
+   person = Person.objects.get(user = User.objects.get(username = request.POST['username']))
    identification_no = request.POST['identification_no']
    university = request.POST['university']
    faculty = request.POST['faculty']
    study_level = request.POST['study_level']
    study_year = request.POST['study_year']
-   final_grade = request.POST['final_grade']
    
-   student = Student.objects.create(person = person, identification_no = identification_no, university = university, faculty = faculty, study_level = study_level, study_year = study_year, final_grade = final_grade)
+   student = Student.objects.create(person = person, identification_no = identification_no, university = university, faculty = faculty, study_level = study_level, study_year = study_year)
    student.save()
 
-def register_professor(request, person):
+def register_professor(request):
+   person = Person.objects.get(user = User.objects.get(username = request.POST['username']))
    department = request.POST['department']
    rank = request.POST['rank']
    office_address = request.POST['office_address']
@@ -99,17 +95,17 @@ def login(request):
    user = auth.authenticate(username = username, password = password)
    
    if user is None:
-      messages.error(request, 'Invalid credentials!')
+      # messages.error(request, 'Invalid credentials!')
       return redirect('login')
    
    auth.login(request, user)
-   messages.success(request, 'You are now logged in!')
+   # messages.success(request, 'You are now logged in!')
    return redirect('dashboard')
 
 def logout(request):
    if request.method == "POST":
       auth.logout(request)
-      messages.success(request, 'You are now logged out.')
+      # messages.success(request, 'You are now logged out.')
       return redirect('index')
 
 def dashboard(request):

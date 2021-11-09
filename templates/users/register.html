@@ -101,29 +101,33 @@
         <td><input name="faculty" type="text"></td>
     </tr>
     <tr>
-        <td>Year of study: </td>
-        <td><input name="study_year" type="number" min="1" max="6"></td>
-    </tr>
-    <tr>
         <td>Study level: </td>
         <td>
             <table>
                 <tr>
                     <td>
-                    <input name="degree" type="radio" value="bachelor">
+                    <input name="study_level" type="radio" value="bachelor">
                     <label for="license">Bachelor</label>
                     </td>
                     <td>
-                    <input name="degree" type="radio" value="master">
+                    <input name="study_level" type="radio" value="master">
                     <label for="master">Master</label>
                     </td>
                     <td>
-                    <input name="degree" type="radio"value="doctor">
+                    <input name="study_level" type="radio"value="doctor">
                     <label for="doctor">Doctor</label>
                     </td>
                 </tr>
             </table>
         </td>
+    </tr>
+        <tr>
+        <td>Year of study: </td>
+        <td><input name="study_year" type="number" min="1" max="6"></td>
+    </tr>
+        <tr>
+        <td>Identification number: </td>
+        <td><input name="identification_no" type="text"></td>
     </tr>
     <tr>
         <td>Department: </td>
@@ -135,13 +139,13 @@
     </tr>
     <tr>
         <td>Office address: </td>
-        <td><input name="office" type="text"></td>
+        <td><input name="office_address" type="text"></td>
     </tr>
     <tr>
         <td>Website: </td>
         <td><input name="website" type="text"></td>
     </tr>
   </table>
-  <input type="submit" value="Register">
+  <input type="submit" class="submit" value="Register">
 </form>
 {% endblock %}
