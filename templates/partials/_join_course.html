@@ -1,0 +1,28 @@
+<div class="modal fade" id="join_course_modal" tabindex="-1" role="dialog" aria-labelledby="join_course_modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="join_course_modal">Join a course</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{% url 'join_course' %}" method="POST">
+      {% csrf_token %}
+         <div class="modal-body">
+            <div class="form-group row">
+               <label for="inputCode" class="col-sm-3 col-form-label">Course code</label>
+               <div class="col-sm-7">
+                  <input type="text" name="code" class="form-control" id="inputCode" placeholder="Course code" required>
+               </div>
+            </div>
+         </div>
+
+         <div class="modal-footer">
+            <input type="Submit" value = "Join" class="btn btn-primary"></input>
+            <input type="Submit" value = "Cancel" class="btn btn-secondary" data-dismiss="modal"></input>
+         </div>
+      </form>
+    </div>
+  </div>
+</div>

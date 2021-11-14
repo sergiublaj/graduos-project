@@ -104,20 +104,23 @@ def logout(request):
       return redirect('index')
 
 def dashboard(request):
-   person = Person.objects.filter(user = request.user)
-   student = Student.objects.filter(person = person)
-   professor = Professor.objects.filter(person = person)
+   try:
+      person = Person.objects.get(user = request.user)
+   except:
+      return redirect('index')
    
-   courses = None
-   if student is None:
-      courses = Course.objects.filter(professors = professor)
-   else:
-      courses = Course.objects.filter(students = student)
-      
+   try:
+      professor = Professor.objects.get(person = person)
+      courses = professor.courses.all()
+      is_student = False
+   except:
+      student = Student.objects.get(person = person)
+      courses = student.courses.all()
+      is_student = True
+   
    context = {
-      'courses': courses
+      'courses': courses,
+      'is_student': is_student
    }
    
    return render(request, 'users/dashboard.html', context)
-
-

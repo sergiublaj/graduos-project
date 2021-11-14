@@ -1,21 +1,6 @@
-/* ############ Defaults ######## */
-nav, header, footer{
-   display: block;
-}
-
-body{
-   line-height: 1;
-   margin: 0;
-}
-
-/* ############ Nav Bar ########## */
-nav{
-   width: 100%;
-   margin: 0;
-}
-
 nav ul{
-   background-color: #eee;
+   color: black;
+   background-color: #246c79;
    overflow: hidden;
    margin: 0;
    padding: 0;
@@ -24,7 +9,6 @@ nav ul{
 ul.topnav li{
    list-style: none;
    float: left;
-
 }
 
 ul.topnav li.topnav-right{
@@ -38,7 +22,7 @@ ul.topnav li a{
    text-align: center;
    padding: 14px;
    text-transform: uppercase;
-   color: #666;
+   color: black;
 }
 
 ul.topnav li a:hover{
@@ -50,13 +34,10 @@ ul.topnav li.dropdownIcon{
    display: none;
 }
 
-.footer {
-   position: fixed;
-   left: 0;
-   bottom: 20px;
-   width: 100%;
-   text-align: center;
- }
+footer {
+   bottom: 0;
+   margin-bottom: 10px;
+}
 
 /*############## Mobile ############## */
 @media screen and (max-width: 680px){
@@ -100,15 +81,6 @@ ul.topnav li.dropdownIcon{
    height: 500px;
    border: none;
    padding: 5px; 
-}
-
-img{
-   max-width: 100%;
-   height: auto;
-   padding: 10px;
-   opacity: 1;
-   margin: auto;
-   display: block;
 }
 
 table.logIn {

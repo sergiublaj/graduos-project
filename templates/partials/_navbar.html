@@ -1,6 +1,4 @@
-{% load static %}
-
-<nav>
+<nav class="navbar">
 	<ul class="topnav" id="dropdownClick">
 		<li><a href = {% url 'index' %}>Home</a></li>
 		{% if user.is_authenticated %}
