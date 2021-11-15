@@ -4,32 +4,28 @@
 {% block content %}
 
 <div class="card mx-auto" style="width: 50rem;">
-  <div class="card-body">
-    <div class="card-image">
-      <img src = {% static 'img/college.png' %} class="borderImg">
-    </div>
+  <div class="card-image">
+    <img src = {% static 'img/college.png' %} class="borderImg">
+  </div>
 
-    <form class="ml-10" action="{% url 'login' %}" method="POST">
+  <div class="card-body">
+    <form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
-      <div class="form-group row">
-        <i class="fas fa-user fa-2x"></i>
-        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+      <div class="form-group row align-center justify-content-md-center">
+        <i class="fas fa-user fa-2x col-sm-1"></i>
         <div class="col-sm-7">
           <input type="text" name="username" class="form-control" id="inputName" placeholder="Name" required>
         </div>
       </div>
-
-      <div class="form-group row">
-        <i class="fas fa-key fa-2x"></i>
-        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+      <br>
+      <div class="form-group row justify-content-md-center">
+        <i class="fas fa-key fa-2x col-sm-1"></i>
         <div class="col-sm-7">
           <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
         </div>
       </div>
-
-      <div class="form-group row">
-        <input class="btn mx-auto" type="Submit" name="Login" class="form-control" value="Log in">
-      </div>
+      <br>
+      <input class="btn btn" type="Submit" name="Login" class="form-control" value="Log in">
     </form>
   </div>
 </div>

@@ -1,42 +1,10 @@
-nav ul{
-   color: black;
-   background-color: #246c79;
-   overflow: hidden;
-   margin: 0;
-   padding: 0;
+html, body {
+   max-width: 100%;
+   overflow-x: hidden;
 }
 
-ul.topnav li{
-   list-style: none;
-   float: left;
-}
-
-ul.topnav li.topnav-right{
-   float: right;
-}
-
-ul.topnav li a{
-   display: block;
-   text-decoration: none;
-   min-height: 16px;
-   text-align: center;
-   padding: 14px;
-   text-transform: uppercase;
-   color: black;
-}
-
-ul.topnav li a:hover{
-   background-color: #63bbca;
-   color: #fff;
-}
-
-ul.topnav li.dropdownIcon{
-   display: none;
-}
-
-footer {
-   bottom: 0;
-   margin-bottom: 10px;
+body {
+   padding-bottom: 75px;
 }
 
 /*############## Mobile ############## */
@@ -69,58 +37,4 @@ footer {
        display: block;
        text-align: left;
    }
-}
-
-.signin{
-   background-color: rgb(14, 44, 44);
-}
-
-.borderImg{
-   border-radius: 10px;
-   width: 500px;
-   height: 500px;
-   border: none;
-   padding: 5px; 
-}
-
-table.logIn {
-   color:rgb(177, 201, 201);
-   text-shadow: 2px 2px 5px black;
-   line-height: 2rem;
-   font-size: 2.5rem;
-   font-family: serif, sans-serif;
-   margin: auto;
-}
-
-.logIn #username {
-   background-color:rgb(148, 146, 146);
-   height: 30px;
-   width: 300px;
-}
-
-.logIn .userImg{
-   border-radius: 20px;
-   width: 80px;
-   height: 80px;
-   border: none;
-   padding: 1px; 
-}
-
-.logIn #password {
-   background-color:rgb(148, 146, 146);
-   height: 30px;
-   width: 300px;
-}
-
-.logIn .passImg{
-   border-radius: 20px;
-   width: 100px;
-   height: 100px;
-   border: none;
-   padding: 1px; 
-}
-
-.submit {
-   margin-left: 50%;
-   font-size: 30px;
 }
