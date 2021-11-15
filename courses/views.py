@@ -56,3 +56,11 @@ def join_course(request):
    course.save()
    
    return redirect('dashboard')
+
+def delete_course(request, course_id):
+   if request.method != 'POST':
+      return render(request, 'users/dashboard.html')
+   
+   Course.objects.get(id = course_id).delete()
+   
+   return redirect('dashboard')
