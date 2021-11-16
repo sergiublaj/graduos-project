@@ -56,9 +56,9 @@ def register_person(request):
    country = request.POST['country']
    address = request.POST['address']
    birth_date = request.POST['birth_date']
-   sex = request.POST['sex']
+   gender = request.POST['gender']
    
-   person = Person.objects.create(user = user, photo = photo, phone = phone, country = country, address = address, birth_date = birth_date, sex = sex)
+   person = Person.objects.create(user = user, photo = photo, phone = phone, country = country, address = address, birth_date = birth_date, gender = gender)
    person.save()
 
 def register_student(request):   
@@ -92,8 +92,11 @@ def login(request):
    username = request.POST['username']
    password = request.POST['password']
    
-   user = User.objects.get(username = username)
-   
+   try:
+      user = User.objects.get(username = username)
+   finally:
+      pass
+
    if user is None or user.password != password:
       # messages.error(request, 'Invalid credentials!')
       return redirect('login')

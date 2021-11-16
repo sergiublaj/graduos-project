@@ -10,7 +10,7 @@ class Person(models.Model):
    country = models.CharField(max_length = 64)
    address = models.CharField(max_length = 128)
    birth_date = models.DateField(default = date.today() - timedelta(days = 18 * 365))
-   sex = models.CharField(default = 'F', max_length = 1)
+   gender = models.CharField(default = 'F', max_length = 1)
   
    def __str__(self):
       return self.user.first_name + " " + self.user.last_name
