@@ -16,6 +16,9 @@ class Professor_Assignment(models.Model):
    file_uploaded = models.FileField()
    percentage = models.IntegerField(default = 100)
    
+   def __str__(self):
+      return self.name
+   
 class Student_Assignment(models.Model):
    student = models.ForeignKey(Student, on_delete = models.DO_NOTHING, null = True)
    assignment = models.OneToOneField(Professor_Assignment, on_delete = models.CASCADE, null = True)

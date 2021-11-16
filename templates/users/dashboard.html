@@ -14,8 +14,8 @@
    <div class="row row-cols-1 row-cols-md-3">
       
          {% if is_student %}
-            <div class="col mb-4" style="height: 20rem">
-               <div class="card">
+            <div class="col mb-4">
+               <div class="card" style="height: 20rem">
                   <div class="card-image">
                      <i class="fas fa-key fa-fw fa-7x"></i>
                   </div>
@@ -24,13 +24,13 @@
                      <p class="card-text">Join a course by entering the code given by teacher</p>
                   </div>
                   <div class="card-footer">   
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#join_course_modal"> Join </button>
+                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#join_course_modal"> Join </button>
                   </div>
                </div>
             </div>
          {% else %}
-            <div class="col mb-4" style="height: 20rem">
-               <div class="card">
+            <div class="col mb-4">
+               <div class="card" style="height: 20rem">
                   <div class="card-image">
                      <i class="fas fa-plus-circle fa-fw fa-7x"></i>
                   </div>
@@ -49,7 +49,8 @@
             <div class="col mb-4">
                <div class="card" style="height: 20rem">
                   <div class="card-image">
-                     <img src = {{course.photo}} alt = {{course.name}} />
+                     <i class="fas fa-book fa-fw fa-7x"></i>
+                     {% comment %} <img src = {{course.photo}} alt = {{course.name}} /> {% endcomment %}
                   </div>
                   <div class="card-body">
                      <h5 class="card-title">{{course.name}}</h5>

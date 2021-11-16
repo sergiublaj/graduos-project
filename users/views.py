@@ -2,9 +2,11 @@ from django.contrib import messages, auth
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from users.models import Person, Student, Professor
-from courses.models import Course
 
 def register(request):
+   if request.user.is_authenticated:
+      return redirect('dashboard')
+   
    if request.method != 'POST':
       return render(request, 'users/register.html')
    
@@ -81,19 +83,23 @@ def register_professor(request):
    professor.save()
    
 def login(request):
+   if request.user.is_authenticated:
+      return redirect('dashboard')
+   
    if request.method != 'POST':
       return render(request, 'users/login.html')
    
    username = request.POST['username']
    password = request.POST['password']
    
-   user = auth.authenticate(username = username, password = password)
+   user = User.objects.get(username = username)
    
-   if user is None:
+   if user is None or user.password != password:
       # messages.error(request, 'Invalid credentials!')
       return redirect('login')
    
    auth.login(request, user)
+   
    # messages.success(request, 'You are now logged in!')
    return redirect('dashboard')
 

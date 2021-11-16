@@ -12,6 +12,9 @@ class Person(models.Model):
    birth_date = models.DateField(default = date.today() - timedelta(days = 18 * 365))
    sex = models.CharField(default = 'F', max_length = 1)
   
+   def __str__(self):
+      return self.user.first_name + " " + self.user.last_name
+   
 class Student(models.Model):
    person = models.ForeignKey(Person, on_delete = models.CASCADE, null = True)
    identification_no = models.IntegerField()
@@ -23,9 +26,15 @@ class Student(models.Model):
    accumulated_credits = models.IntegerField(default = 0, blank = True)
    outstanding_credits = models.IntegerField(default = 0, blank = True)
    
+   def __str__(self):
+      return self.person.user.first_name + " " + self.person.user.last_name
+   
 class Professor(models.Model):
    person = models.ForeignKey(Person, on_delete = models.CASCADE, null = True)
    department = models.CharField(max_length = 128)
    rank = models.CharField(max_length = 128)
    office_address = models.CharField(max_length = 128)
    website = models.URLField(blank = True)
+   
+   def __str__(self):
+      return self.person.user.first_name + " " + self.person.user.last_name 
