@@ -2,14 +2,14 @@ from django.contrib import messages, auth
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from users.models import Person, Student, Professor
-
+from django.contrib import messages
 def register(request):
    if request.user.is_authenticated:
       return redirect('dashboard')
    
    if request.method != 'POST':
       return render(request, 'users/register.html')
-   
+
    register_user(request)
    
    register_person(request)
@@ -21,7 +21,7 @@ def register(request):
    else:
       register_professor(request)   
       
-   # messages.success(request, 'Successfully registered!')
+   messages.success(request, 'Successfully registered!')
    return redirect('login')
    
 def register_user(request):
@@ -35,15 +35,15 @@ def register_user(request):
    allUsers = User.objects.all()
    
    if password != password2:
-      # messages.error(request, 'Passwords do not match!')
+      messages.error(request, 'Passwords do not match!')
       return redirect('register')
 
    if allUsers.filter(username = username).exists():
-      # messages.error(request, 'Username already taken!')
+      messages.error(request, 'Username already taken!')
       return redirect('register')
    
    if allUsers.filter(email = email).exists():
-      # messages.error(request, 'Email already taken!')
+      messages.error(request, 'Email already taken!')
       return redirect('register')      
    
    user = User.objects.create(first_name = first_name, last_name = last_name, username = username, email = email, password = password)
@@ -98,19 +98,19 @@ def login(request):
       pass
 
    if user is None or user.password != password:
-      # messages.error(request, 'Invalid credentials!')
+      messages.error(request, 'Invalid credentials!')
       return redirect('login')
    
    auth.login(request, user)
    
-   # messages.success(request, 'You are now logged in!')
+   messages.success(request, 'You are now logged in!')
    return redirect('dashboard')
 
 def logout(request):
    if request.method == "POST":
       auth.logout(request)
-      # messages.success(request, 'You are now logged out.')
-      return redirect('index')
+      messages.success(request, 'You are now logged out.')
+      return redirect('login')
 
 def dashboard(request):
    try:
