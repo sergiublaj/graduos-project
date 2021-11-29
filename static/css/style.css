@@ -2,11 +2,7 @@ html, body {
     max-width: 100%;
     overflow-x: hidden;
  }
- 
- body {
-    padding-bottom: 75px;
- }
- 
+
  /*############## Mobile ############## */
  @media screen and (max-width: 680px){
     ul.topnav li:not(:nth-child(1)){

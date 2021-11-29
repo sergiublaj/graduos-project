@@ -3,12 +3,11 @@
 {% block title %} | Register{% endblock title %}
 {% block content %}
 
-{% include 'partials/_alerts.html' %}
 <div class="card mx-auto" style="width: 50rem;">
   <div class="card-image">
     <img src = {% static 'img/college.png' %} alt="" class="borderImg">
   </div>
-
+  {% include 'partials/_alerts.html' %}
   <div class="card-body">
     <form action="{% url 'register' %}" method="POST">
     {% csrf_token %}
@@ -146,11 +145,11 @@
         <i class="fas fa-signal fa-2x col-sm-1"></i></i>
         <label for="inputStudy" class="col-sm-2 col-form-label">Study level</label>
         <div class="col-sm-7">
-            <input name="study_level" type="radio" value="bachelor">
+            <input type="radio" name="study_level" value="bachelor">
                                 <label for="license">Bachelor</label>
-            <input name="study_level" type="radio" value="master">
+            <input type="radio" name="study_level" value="master">
                                 <label for="master">Master</label>
-            <input name="study_level" type="radio"value="doctor">
+            <input type="radio" name="study_level" value="doctor">
                                 <label for="doctor">Doctor</label>
         </div>
       </div>

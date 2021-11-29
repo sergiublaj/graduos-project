@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from datetime import datetime, timedelta, date
 
 class Person(models.Model):
-   user = models.OneToOneField(User, on_delete = models.CASCADE, null = True)
+   user = models.OneToOneField(User, on_delete = models.CASCADE)
    photo = models.ImageField(upload_to = 'photos/persons/%Y/', blank = True)
    phone = models.CharField(max_length = 10)
    registration_date = models.DateTimeField(default = datetime.now, blank = True)
@@ -16,7 +16,7 @@ class Person(models.Model):
       return self.user.first_name + " " + self.user.last_name
    
 class Student(models.Model):
-   person = models.ForeignKey(Person, on_delete = models.CASCADE, null = True)
+   person = models.OneToOneField(Person, on_delete = models.CASCADE)
    identification_no = models.IntegerField()
    university = models.CharField(max_length = 64)
    faculty = models.CharField(max_length = 64)
@@ -30,7 +30,7 @@ class Student(models.Model):
       return self.person.user.first_name + " " + self.person.user.last_name
    
 class Professor(models.Model):
-   person = models.ForeignKey(Person, on_delete = models.CASCADE, null = True)
+   person = models.OneToOneField(Person, on_delete = models.CASCADE)
    department = models.CharField(max_length = 128)
    rank = models.CharField(max_length = 128)
    office_address = models.CharField(max_length = 128)
