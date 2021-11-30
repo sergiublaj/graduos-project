@@ -11,13 +11,13 @@
    <div class="row row-cols-1 row-cols-md-3">
       
       {% if is_student %}
-         {% include 'partials/_join_course.html' %}
+         {% include 'partials/courses/_join_course.html' %}
       {% else %}
-         {% include 'partials/_create_course.html' %}
+         {% include 'partials/courses/_create_course.html' %}
       {% endif %}
 
       {% for course in courses %}
-         {% include 'partials/_course_item.html' %}
+         {% include 'partials/courses/_course_item.html' %}
       {% endfor %}
 
       <input type="hidden" id="current_course_id" name="course_id" value="0">

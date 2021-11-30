@@ -57,7 +57,7 @@ def register_user(request):
 
 def register_person(request):
     user = User.objects.get(username=request.POST['username'])
-    photo = request.POST['photo']
+    photo = request.FILES['photo']
     phone = request.POST['phone']
     country = request.POST['country']
     address = request.POST['address']

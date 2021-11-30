@@ -3,15 +3,17 @@
 {% block title %} | Login{% endblock title %}
 {% block content %}
 
-<div class="card mx-auto" style="width: 50rem;">
-  <div class="card-image">
-    <img src = {% static 'img/college.png' %} alt="" class="borderImg">
+
+<div class="card text-center mx-auto sign-in-form">
+  <div class="card-img-top">
+    <img src = {% static 'img/college.png' %} alt="Log in" class="form-image">
   </div>
 
-  <div class="card-body">
-    {% include 'partials/_alerts.html' %}
-    <form action="{% url 'login' %}" method="POST">
-    {% csrf_token %}
+  <form action="{% url 'login' %}" method="POST">
+  {% csrf_token %}
+
+    <div class="card-body">
+      {% include 'partials/_alerts.html' %}
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-user fa-2x col-sm-1"></i>
         <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
@@ -20,17 +22,20 @@
         </div>
       </div>
       <br>
-       <div class="form-group row justify-content-md-center">
+        <div class="form-group row justify-content-md-center">
         <i class="fas fa-key fa-2x col-sm-1"></i>
         <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-7">
           <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
         </div>
       </div>
-      <br>
-      <input class="btn btn" type="Submit" name="Login" class="form-control" value="Log in">
-    </form>
-  </div>
+    </div>
+
+    <div class="card-footer">
+      <input class="btn btn-block btn-primary text-center" type="Submit" name="Login" class="form-control" value="Log in">
+    </div>
+    
+  </form>
 </div>
 
 {% endblock %}

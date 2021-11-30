@@ -3,6 +3,25 @@ html, body {
     overflow-x: hidden;
  }
 
+.card {
+    margin-top: 1em;
+    margin-bottom: 1em;    
+}
+
+.course-item-photo {
+    width: 7em;
+    height: 10em;
+}
+
+.sign-in-form {
+    width: 50em;
+}
+
+.form-image {
+    width: 30em;
+    height: 30em;
+}
+
  /*############## Mobile ############## */
  @media screen and (max-width: 680px){
     ul.topnav li:not(:nth-child(1)){

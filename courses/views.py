@@ -20,7 +20,7 @@ def create_course(request):
     year = request.POST['year']
     semester = request.POST['semester']
     credits_no = request.POST['credits_no']
-    photo = request.POST['photo']
+    photo = request.FILES['photo']
     description = request.POST['description']
 
     allCourses = Course.objects.all()

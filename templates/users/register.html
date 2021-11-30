@@ -3,14 +3,16 @@
 {% block title %} | Register{% endblock title %}
 {% block content %}
 
-<div class="card mx-auto" style="width: 50rem;">
-  <div class="card-image">
-    <img src = {% static 'img/college.png' %} alt="" class="borderImg">
+<div class="card text-center mx-auto sign-in-form">
+  <div class="card-img-top">
+    <img src = {% static 'img/college.png' %} alt="Register" class="form-image">
   </div>
-  {% include 'partials/_alerts.html' %}
-  <div class="card-body">
-    <form action="{% url 'register' %}" method="POST">
-    {% csrf_token %}
+
+  <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  
+    <div class="card-body">
+      {% include 'partials/_alerts.html' %}
       <div class="form-group row justify-content-md-center">
         <i class="far fa-user fa-2x col-sm-1"></i>
         <label for="inputFirstname" class="col-sm-2 col-form-label">First name</label>
@@ -35,7 +37,7 @@
         </div>
       </div>
       <br>
-       <div class="form-group row justify-content-md-center">
+      <div class="form-group row justify-content-md-center">
         <i class="fas fa-key fa-2x col-sm-1"></i>
         <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-7">
@@ -43,7 +45,7 @@
         </div>
       </div>
       <br>
-       <div class="form-group row justify-content-md-center">
+      <div class="form-group row justify-content-md-center">
         <i class="fas fa-key fa-2x col-sm-1"></i>
         <label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm password</label>
         <div class="col-sm-7">
@@ -51,7 +53,7 @@
         </div>
       </div>
       <br>
-       <div class="form-group row justify-content-md-center">
+      <div class="form-group row justify-content-md-center">
         <i class="fas fa-at fa-2x col-sm-1"></i>
         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-7">
@@ -201,10 +203,12 @@
           <input type="website" name="website" class="form-control" id="website" placeholder="Website">
         </div>
       </div>
-      <br>
-      <input class="btn btn" type="Submit" class="form-control" value="Register">
-      <br>
+    </div>
+
+    <div class="card-footer">
+      <input class="btn btn-block btn-primary text-center" type="Submit" class="form-control" value="Register">
+    </div>
+
     </form>
-  </div>
 </div>
 {% endblock %}

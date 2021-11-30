@@ -134,8 +134,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media folder settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-# Messages
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
-}
