@@ -12,7 +12,7 @@ class Course(models.Model):
     photo = models.ImageField(blank=True, null=True,
                               upload_to='images/courses/%Y/')
     students = models.ManyToManyField(
-        Student, related_name='courses', null=True, default=[])
+        Student, related_name='courses', default=[])
     professors = models.ManyToManyField(
         Professor, related_name='courses', default=[])
 
