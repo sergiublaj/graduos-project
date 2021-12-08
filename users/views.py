@@ -38,15 +38,15 @@ def register_user(request):
 
     if allUsers.filter(username=username).exists():
         messages.error(request, 'Username already taken!')
-        return render(None, 'users/register.html')
+        return render(request, 'users/register.html')
 
     if allUsers.filter(email=email).exists():
         messages.error(request, 'Email already taken!')
-        return render(None, 'users/register.html')
+        return render(request, 'users/register.html')
 
     if password != password2:
         messages.error(request, 'Passwords do not match!')
-        return render(None, 'users/register.html')
+        return render(request, 'users/register.html')
 
     user = User.objects.create_user(first_name=first_name, last_name=last_name,
                                     username=username, email=email)

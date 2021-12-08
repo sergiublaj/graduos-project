@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.contrib import messages
 
 from courses.models import Course
+from notifications.views import create_notification
 from users.models import Person, Professor, Student
+from notifications.models import Notification
 
 
 def create_course(request):
@@ -40,7 +42,23 @@ def create_course(request):
     course.students.set([])
     course.professors.add(professor)
 
-    return redirect('dashboard')
+    notification = get_create_course_notification(request, name, code)
+
+    return create_notification(request, 'dashboard', notification)
+
+
+def get_create_course_notification(request, name, code):
+    messages.success(request, f'Successfully created course {name}.')
+
+    title = 'New course created'
+    description = ('\n').join(('Congratulations!',
+                              f'You have successfully created course {name}.',
+                               f'Share the code {code} to your students.'))
+
+    notification = Notification.objects.create(
+        user=request.user, title=title, description=description)
+
+    return notification
 
 
 def join_course(request):
@@ -53,7 +71,7 @@ def join_course(request):
     except:
         return redirect('dashboard')
 
-    code = request.POST["code"]
+    code = request.POST['code']
 
     allCourses = Course.objects.all()
 
@@ -69,9 +87,23 @@ def join_course(request):
     course.students.add(student)
     course.save()
 
-    messages.success(request, f'Successfully joined course {course.name}.')
+    notification = get_join_course_notification(request, course.name)
 
-    return redirect('dashboard')
+    return create_notification(request, 'dashboard', notification)
+
+
+def get_join_course_notification(request, name):
+    messages.success(request, f'Successfully joined course {name}.')
+
+    title = 'Joined a new course'
+    description = ('\n').join(('Congratulations!',
+                              f'You have successfully joined course {name}.',
+                               'Do your assignments and get the highest grade.'))
+
+    notification = Notification.objects.create(
+        user=request.user, title=title, description=description)
+
+    return notification
 
 
 def leave_course(request, fake_course_id):
@@ -90,13 +122,25 @@ def leave_course(request, fake_course_id):
     if course not in student.courses.all():
         return redirect('dashboard')
 
-    print(Course.objects.get(id=course_id))
-
     Course.objects.get(id=course_id).students.remove(student)
 
-    messages.success(request, f'Left course {course.name}.')
+    notification = get_leave_course_notification(request, course.name)
 
-    return redirect('dashboard')
+    return create_notification(request, 'dashboard', notification)
+
+
+def get_leave_course_notification(request, name):
+    messages.success(request, f'Left course {name}.')
+
+    title = 'Left a course'
+    description = ('\n').join((f'You have successfully left course {name}.',
+                              'Hope to see you soon!',
+                               'All the best!'))
+
+    notification = Notification.objects.create(
+        user=request.user, title=title, description=description)
+
+    return notification
 
 
 def delete_course(request, fake_course_id):
@@ -115,10 +159,21 @@ def delete_course(request, fake_course_id):
     if course not in professor.courses.all():
         return redirect('dashboard')
 
-    print(Course.objects.get(id=course_id))
-
     Course.objects.get(id=course_id).delete()
 
-    messages.success(request, f'Deleted course {course.name}.')
+    notification = get_delete_course_notification(request, course.name)
 
-    return redirect('dashboard')
+    return create_notification(request, 'dashboard', notification)
+
+
+def get_delete_course_notification(request, name):
+    messages.success(request, f'Deleted course {name}.')
+
+    title = 'Deleted a course'
+    description = ('\n').join((f'You have successfully deleted course {name}.',
+                              'Hope you create a new one soon.'))
+
+    notification = Notification.objects.create(
+        user=request.user, title=title, description=description)
+
+    return notification

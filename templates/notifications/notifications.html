@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block title %}| Notifications{% endblock title %} 
+{% block content %}
+
+<h1>Notifications</h1>
+
+{% if not notifications %}
+    <h2>No notifications.<h2>
+{% else %}
+    {% for notification in notifications %}
+        {% include 'partials/notifications/_notification_item.html' %}
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
