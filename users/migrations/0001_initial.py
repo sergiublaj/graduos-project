@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('country', models.CharField(max_length=64)),
                 ('address', models.CharField(max_length=128)),
                 ('birth_date', models.DateField(default=datetime.date(2003, 11, 11))),
-                ('sex', models.CharField(default='F', max_length=1)),
+                ('gender', models.CharField(default='F', max_length=1)),
                 ('user_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

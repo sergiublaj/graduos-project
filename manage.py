@@ -19,8 +19,4 @@ def main():
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     main()
-=======
-    main()
->>>>>>> 87ca4fb (added authenticate functions)

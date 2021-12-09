@@ -1,8 +1,4 @@
 from django.contrib import admin
-<<<<<<< HEAD
-
-# Register your models here.
-=======
 from grades.models import Grade, Professor_Assignment, Student_Assignment
 
 
@@ -55,4 +51,3 @@ class Student_AssignmentAdmin(admin.ModelAdmin):
         return obj.assignment.percentage
 
 admin.site.register(Student_Assignment, Student_AssignmentAdmin)
->>>>>>> 87ca4fb (added authenticate functions)

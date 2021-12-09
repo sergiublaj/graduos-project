@@ -1,0 +1,28 @@
+<div class="modal fade" id="delete_course_modal" tabindex="-1" role="dialog" 
+aria-labelledby="delete_course_modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete course</h5>
+      </div>
+      <div class="modal-body">
+        <i class="fa fa-exclamation-circle fa-3x align-middle"></i>
+        <span id="delete_course_name_span"></span>
+      </div>
+      <div class="modal-footer">     
+        <a href="javascript:{
+          let course_id = document.getElementById('current_course_id').value;
+          console.log(document.getElementById('delete_course_id'));
+          document.getElementById('delete_course_id').value = course_id;
+          document.getElementById('delete_course').submit();
+        }" class="btn btn-primary">Delete</a>
+        <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</a>
+
+        <form id="delete_course" action="{% url 'delete_course' 0 %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" id="delete_course_id" name="course_id">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

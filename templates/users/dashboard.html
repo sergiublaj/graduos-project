@@ -4,6 +4,97 @@
 {% block title %}| Dashboard{% endblock title %} 
 {% block content %}
 
-<h1>Dashboard</h1>
+<div class="dashboard">
+   <h1 class="center">Dashboard</h1>
+   <h2>Logged in as {{user.first_name}} {{user.last_name}}</h2>
+   {% include 'partials/_alerts.html' %}
+   <div class="row row-cols-1 row-cols-md-3">
+      
+      {% if is_student %}
+         {% include 'partials/courses/_join_course.html' %}
+      {% else %}
+         {% include 'partials/courses/_create_course.html' %}
+      {% endif %}
+
+      {% for course in courses %}
+         {% include 'partials/courses/_course_item.html' %}
+      {% endfor %}
+
+      <input type="hidden" id="current_course_id" name="course_id" value="0">
+
+      <!--<div><a href="profile_info.html" ><div  class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div></a></div>
+
+-->
+   </div><br>
+
+
+   <div class="container rounded bg-white mt-5 mb-5">
+      <div class="row">
+          <div class="col-md-3 border-right">
+              <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+          </div>
+          <div class="col-md-5 border-right">
+              <div class="p-3 py-5">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                      <h4 class="text-right">Profile Settings</h4>
+                  </div>
+
+                  <div class="row mt-3">
+                  <div class="col-md-12"><label class="info_labels">Username</label><input id="inputUsername" type="text" class="form-control" placeholder="Username" value="" readonly></div>
+                  <div class="col-md-12"><label class="info_labels">Email</label><input id="inputEmail" type="text" class="form-control" placeholder="Email" value="" readonly></div>
+                  </div>
+                  <div class="row mt-2">
+                      <div class="col-md-6"><label class="info_labels">First Name</label><input id="inputFirstname" type="text" class="form-control" value="" placeholder="First name" readonly></div>
+                      <div class="col-md-6"><label class="info_labels">Last Name</label><input id="inputLastname" type="text" class="form-control" value="" placeholder="Last name" readonly></div>
+                  </div>
+                  <div class="row mt-3">
+                      <div class="col-md-12"><label class="info_labels">Phone</label><input type="text" id="inputPhone" class="form-control" placeholder="Phone number" value="" readonly></div>
+                      <div class="col-md-12"><label class="info_labels">Country</label><input type="text" id="inputCountry" class="form-control" placeholder="Country" value="" readonly></div>
+                      <div class="col-md-12"><label class="info_labels">Address</label><input type="text" id="inputAddress" class="form-control" placeholder="Address" value="" readonly></div>
+                      <div class="col-md-12"><label class="info_labels">Birth date</label><input type="text" id="inputBirth_date" class="form-control" placeholder="Birth date" value="" readonly></div>
+                      <div class="col-md-12"><label class="info_labels">Gender</label><input type="text"  id="inputGender" class="form-control" placeholder="Gender" value="" readonly></div>
+                  </div>
+                  <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Edit Profile</button></div>
+              </div>
+          </div>
+
+
+          <!-- Student info needs to be modular -->
+          <div class="col-md-4">
+              <div class="p-3 py-5">
+                     <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Student info</h4>
+                  </div>
+                  <div class="col-md-12"><label class="info_labels">University</label><input type="text" id="inputUniversity" class="form-control" placeholder="University" value="" readonly></div>
+                  <div class="col-md-12"><label class="info_labels">Faculty</label><input type="text" id="inputFaculty" class="form-control" placeholder="Faculty" value="" readonly></div>
+                  <div class="col-md-12"><label class="info_labels">Study level</label><input type="text" id="inputStudylevel" class="form-control" placeholder="Study level" value="" readonly></div>
+                  <div class="col-md-12"><label class="info_labels">Year of study</label><input type="text" id="inputYear" class="form-control" placeholder="Year of study" value="" readonly></div>
+                  <div class="col-md-12"><label class="info_labels">Identification number</label><input type="text" id="identification_no" class="form-control" placeholder="ID" value="" readonly></div>
+              </div>
+          </div>
+         <!---->
+
+
+          <!-- Professor info needs to be modular -->
+          <div class="col-md-4">
+            <div class="p-3 py-5">
+                   <div class="d-flex justify-content-between align-items-center mb-3">
+                      <h4 class="text-right">Professor info</h4>
+                </div>
+                <div class="col-md-12"><label class="info_labels">Department</label><input type="text" id="department" class="form-control" placeholder="Department" value="" readonly></div>
+                <div class="col-md-12"><label class="info_labels">Rank</label><input type="text" id="rank" class="form-control" placeholder="Rank" value="" readonly></div>
+                <div class="col-md-12"><label class="info_labels">Office address</label><input type="text" id="office_address" class="form-control" placeholder="Office address" value="" readonly></div>
+                <div class="col-md-12"><label class="info_labels">Website</label><input type="text" id="website" class="form-control" placeholder="Website" value="" readonly></div>            </div>
+        </div>
+        <!---->
+
+      </div>
+  </div>
+  </div>
+  </div>
+
+
+
+</div class="dashboard">
 
 {% endblock %}

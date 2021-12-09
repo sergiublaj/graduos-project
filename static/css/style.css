@@ -1,154 +1,55 @@
-/* ############ Defaults ######## */
-nav, header, footer{
-   display: block;
-}
-
-body{
-   line-height: 1;
-   margin: 0;
-}
-
-/* ############ Nav Bar ########## */
-nav{
-   width: 100%;
-   margin: 0;
-}
-
-nav ul{
-   background-color: #eee;
-   overflow: hidden;
-   margin: 0;
-   padding: 0;
-}
-
-ul.topnav li{
-   list-style: none;
-   float: left;
-
-}
-
-ul.topnav li.topnav-right{
-   float: right;
-}
-
-ul.topnav li a{
-   display: block;
-   text-decoration: none;
-   min-height: 16px;
-   text-align: center;
-   padding: 14px;
-   text-transform: uppercase;
-   color: #666;
-}
-
-ul.topnav li a:hover{
-   background-color: #63bbca;
-   color: #fff;
-}
-
-ul.topnav li.dropdownIcon{
-   display: none;
-}
-
-.footer {
-   position: fixed;
-   left: 0;
-   bottom: 20px;
-   width: 100%;
-   text-align: center;
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
  }
 
-/*############## Mobile ############## */
-@media screen and (max-width: 680px){
-   ul.topnav li:not(:nth-child(1)){
-       display: none;
-   }
-
-   ul.topnav li.dropdownIcon{
-       display: block;
-       float: right;
-   }
-
-   ul.topnav.responsive li.dropdownIcon{
-       position: absolute;
-       top: 0;
-       right: 0;
-   }
-
-   ul.topnav.responsive{
-       position: relative;
-   }
-
-   ul.topnav.responsive li{
-       display: inline;
-       float: none;
-   }
-
-   ul.topnav.responsive li a{
-       display: block;
-       text-align: left;
-   }
+.card {
+    margin-top: 1em;
+    margin-bottom: 1em;    
 }
 
-.signin{
-   background-color: rgb(14, 44, 44);
+.course-item-photo {
+    width: 7em;
+    height: 10em;
 }
 
-.borderImg{
-   border-radius: 10px;
-   width: 500px;
-   height: 500px;
-   border: none;
-   padding: 5px; 
+.sign-in-form {
+    width: 50em;
 }
 
-img{
-   max-width: 100%;
-   height: auto;
-   padding: 10px;
-   opacity: 1;
-   margin: auto;
-   display: block;
+.form-image {
+    width: 30em;
+    height: 30em;
 }
 
-table.logIn {
-   color:rgb(177, 201, 201);
-   text-shadow: 2px 2px 5px black;
-   line-height: 2rem;
-   font-size: 2.5rem;
-   font-family: serif, sans-serif;
-   margin: auto;
-}
-
-.logIn #username {
-   background-color:rgb(148, 146, 146);
-   height: 30px;
-   width: 300px;
-}
-
-.logIn .userImg{
-   border-radius: 20px;
-   width: 80px;
-   height: 80px;
-   border: none;
-   padding: 1px; 
-}
-
-.logIn #password {
-   background-color:rgb(148, 146, 146);
-   height: 30px;
-   width: 300px;
-}
-
-.logIn .passImg{
-   border-radius: 20px;
-   width: 100px;
-   height: 100px;
-   border: none;
-   padding: 1px; 
-}
-
-.submit {
-   margin-left: 50%;
-   font-size: 30px;
-}
+ /*############## Mobile ############## */
+ @media screen and (max-width: 680px){
+    ul.topnav li:not(:nth-child(1)){
+        display: none;
+    }
+ 
+    ul.topnav li.dropdownIcon{
+        display: block;
+        float: right;
+    }
+ 
+    ul.topnav.responsive li.dropdownIcon{
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+ 
+    ul.topnav.responsive{
+        position: relative;
+    }
+ 
+    ul.topnav.responsive li{
+        display: inline;
+        float: none;
+    }
+ 
+    ul.topnav.responsive li a{
+        display: block;
+        text-align: left;
+    }
+ }

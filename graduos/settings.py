@@ -1,3 +1,4 @@
+from django.contrib.messages import constants as messages
 import os
 
 from pathlib import Path
@@ -25,6 +26,7 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'grades.apps.GradesConfig',
     'chats.apps.ChatsConfig',
+    'notifications.apps.NotificationsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,13 +73,8 @@ WSGI_APPLICATION = 'graduos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-<<<<<<< HEAD
-        'NAME': 'graduos',
-        'USER': 'sergiublaj',
-=======
         'NAME': 'graduos_db',
         'USER': 'graduos_admin',
->>>>>>> 87ca4fb (added authenticate functions)
         'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '5432'
@@ -117,6 +114,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Authentication backends
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 # Static files (CSS, JavaScript, Images)
 
@@ -135,7 +137,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Messages
-from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
