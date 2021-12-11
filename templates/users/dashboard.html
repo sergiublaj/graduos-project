@@ -6,8 +6,12 @@
 
 <div class="dashboard">
    <h1 class="center">Dashboard</h1>
-   <h2>Logged in as {{user.first_name}} {{user.last_name}}</h2>
-   {% include 'partials/_alerts.html' %}
+   <h2>
+      Logged in as {{user.first_name}} {{user.last_name}}. 
+      <a href={% url 'profile' %}>View profile</a>
+   </h2>
+   
+   {% include 'partials/alerts/_alerts.html' %}
    <div class="row row-cols-1 row-cols-md-3">
       
       {% if is_student %}

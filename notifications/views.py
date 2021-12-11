@@ -13,7 +13,7 @@ def create_notification(request, http_redirect, notification):
 
 
 def view_notifications(request):
-    if request.method != 'GET':
+    if request.method != 'POST':
         return redirect('dashboard')
 
     notifications = Notification.objects.filter(

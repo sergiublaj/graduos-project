@@ -1,9 +1,9 @@
 function dropdownMenu(){
-   var dropDown = document.getElementById("dropdownClick");
-   if(dropDown.className === "topnav"){
-      dropDown.className += " responsive";
+   var dropDown = document.getElementById('dropdownClick');
+   if(dropDown.className === 'topnav'){
+      dropDown.className += ' responsive';
    } else{
-      dropDown.className = "topnav";
+      dropDown.className = 'topnav';
    }
 }
 
@@ -14,4 +14,5 @@ setTimeout(() => {
    $('#message').fadeOut('slow');
 }, 3000);
 
-$('.toast').toast('show');
+// $('.toast').toast('show');
+

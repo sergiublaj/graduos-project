@@ -12,7 +12,6 @@ aria-labelledby="delete_course_modal" aria-hidden="true">
       <div class="modal-footer">     
         <a href="javascript:{
           let course_id = document.getElementById('current_course_id').value;
-          console.log(document.getElementById('delete_course_id'));
           document.getElementById('delete_course_id').value = course_id;
           document.getElementById('delete_course').submit();
         }" class="btn btn-primary">Delete</a>

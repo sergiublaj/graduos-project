@@ -1,7 +1,10 @@
 from django.contrib import messages, auth
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
+
 from users.models import Person, Student, Professor
+from notifications.models import Notification
+from notifications.views import create_notification
 
 
 def register(request):
@@ -118,10 +121,12 @@ def login(request):
 
 
 def logout(request):
-    if request.method == "POST":
-        auth.logout(request)
-        messages.success(request, 'You are now logged out.')
-        return redirect('login')
+    if request.method != 'POST':
+        return redirect('index')
+    
+    auth.logout(request)
+    messages.success(request, 'You are now logged out.')
+    return redirect('login')
 
 
 def dashboard(request):
@@ -131,13 +136,13 @@ def dashboard(request):
         return redirect('index')
 
     try:
-        professor = Professor.objects.get(person=person)
-        courses = professor.courses.all()
-        is_student = False
-    except:
         student = Student.objects.get(person=person)
         courses = student.courses.all()
         is_student = True
+    except:
+        professor = Professor.objects.get(person=person)
+        courses = professor.courses.all()
+        is_student = False
 
     context = {
         'courses': courses,
@@ -145,3 +150,71 @@ def dashboard(request):
     }
 
     return render(request, 'users/dashboard.html', context)
+
+
+def profile(request):
+    try:
+        person = Person.objects.get(user=request.user)
+    except:
+        return redirect('index')
+
+    try:
+        student = Student.objects.get(person=person)
+        is_student = True
+        professor = None
+    except:
+        professor = Professor.objects.get(person=person)
+        is_student = False
+        student = None
+
+    context = {
+        'is_student': is_student,
+        'person': person,
+        'student': student,
+        'professor': professor
+    }
+
+    return render(request, 'users/profile.html', context)
+
+
+def edit_profile(request):
+    if request.method != 'POST':
+        return redirect('profile')
+    
+    if not request.user.is_authenticated:
+        return redirect('index')
+    
+    username = request.POST["inputUsername"]
+    email = request.POST["inputEmail"]
+    phone = request.POST["inputPhone"]
+    country = request.POST["inputCountry"]
+    address = request.POST["inputAddress"]
+    
+    user = request.user
+    user.username = username
+    user.email = email
+    user.save()
+    
+    person = Person.objects.get(user = request.user)
+    person.phone = phone
+    person.address = address
+    person.country = country
+    person.save()
+    
+    notification = get_profile_edit_notification(request)
+
+    return create_notification(request, 'profile', notification)
+
+
+def get_profile_edit_notification(request):
+    messages.success(request, f'Successfully changed your profile.')
+
+    title = 'Profile changes'
+    description = ('\n').join(('Congratulations!',
+                                'You have successfully changed your personal information.',
+                               'Navigate to dashboard/profile and see your information.'))
+
+    notification = Notification.objects.create(
+        user=request.user, title=title, description=description)
+
+    return notification

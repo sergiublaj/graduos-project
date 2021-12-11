@@ -12,7 +12,7 @@
   {% csrf_token %}
   
     <div class="card-body">
-      {% include 'partials/_alerts.html' %}
+      {% include 'partials/alerts/_alerts.html' %}
       <div class="form-group row justify-content-md-center">
         <i class="far fa-user fa-2x col-sm-1"></i>
         <label for="inputFirstname" class="col-sm-3 col-form-label">First name</label>
@@ -147,11 +147,11 @@
         <i class="fas fa-signal fa-2x col-sm-1"></i></i>
         <label for="inputStudy" class="col-sm-3 col-form-label">Study level</label>
         <div class="col-sm-6">
-            <input type="radio" name="study_level" value="bachelor">
+            <input type="radio" name="study_level" value="Bachelor">
                                 <label for="license">Bachelor</label>
-            <input type="radio" name="study_level" value="master">
+            <input type="radio" name="study_level" value="Master">
                                 <label for="master">Master</label>
-            <input type="radio" name="study_level" value="doctor">
+            <input type="radio" name="study_level" value="Doctor">
                                 <label for="doctor">Doctor</label>
         </div>
       </div>
