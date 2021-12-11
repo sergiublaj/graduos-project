@@ -4,7 +4,7 @@ from notifications.models import Notification
 
 
 def create_notification(request, http_redirect, notification):
-    if request.method != 'POST':
+    if request.method != 'GET':
         return redirect('index')
 
     notification.save()
