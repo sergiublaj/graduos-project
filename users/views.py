@@ -185,7 +185,7 @@ def edit_profile(request):
     if not request.user.is_authenticated:
         return redirect('index')
     
-    # photo = request.POST["inputPhoto"]
+    photo = request.FILES['photo']
     username = request.POST["inputUsername"]
     email = request.POST["inputEmail"]
     phone = request.POST["inputPhone"]
@@ -198,7 +198,7 @@ def edit_profile(request):
     user.save()
     
     person = Person.objects.get(user = request.user)
-    # person.photo = photo if photo != '' else person.photo
+    person.photo = photo if photo != '' else person.photo
     person.phone = phone
     person.address = address
     person.country = country
