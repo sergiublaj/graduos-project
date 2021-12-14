@@ -1,0 +1,70 @@
+<div class="modal fade" id="create_course_modal" tabindex="-1" role="dialog" aria-labelledby="create_course_modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="create_course_modal">Create new course</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{% url 'create_course' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+         <div class="modal-body">
+            <div class="form-group row">
+               <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+               <div class="col-sm-10">
+                  <input type="text" name="name" class="form-control" id="inputName" placeholder="Name" required>
+               </div>
+            </div>
+            <br>
+            <div class="form-group row">
+               <label for="inputPhoto" class="col-sm-2 col-form-label">Photo</label>
+               <div class="col-sm-10">
+                  <input type="file" name="photo" class="form-control" id="inputPhoto">
+               </div>
+            </div>
+            <br>
+            <div class="form-group row">
+               <label for="inputYear" class="col-sm-2 col-form-label">Code</label>
+               <div class="col-sm-10">
+                  <input type="text" name="code" class="form-control" id="inputKey" placeholder="Code" required>
+               </div>
+            </div>
+            <br>
+            <div class="form-group row">
+               <label for="inputYear" class="col-sm-2 col-form-label">Credits</label>
+               <div class="col-sm-10">
+                  <input type="number" name="credits_no" class="form-control" id="inputCredits" placeholder="Credits" required>
+               </div>
+            </div>
+            <br>
+            <div class="form-group row">
+               <label for="inputYear" class="col-sm-2 col-form-label">Year</label>
+               <div class="col-sm-10">
+                  <input type="text" name="year" class="form-control" id="inputYear" placeholder="Year" required>
+               </div>
+            </div>
+            <br>
+            <div class="form-group row">
+               <label for="inputYear" class="col-sm-2 col-form-label">Semester</label>
+               <div class="col-sm-10">
+                  <input type="number" name="semester" class="form-control" id="inputSemester" placeholder="Semester" required>
+               </div>
+            </div>
+            <br>
+            <div class="form-group row">
+               <label for="inputYear" class="col-sm-2 col-form-label">Description</label>
+               <div class="col-sm-10">
+                  <input type="text-area" name="description" class="form-control" id="inputDescription" placeholder="Description" required>
+               </div>
+            </div>
+         </div>
+
+         <div class="modal-footer">
+            <input type="Submit" value = "Create" class="btn btn-primary"></input>
+            <input type="button" value = "Cancel" class="btn btn-secondary" data-bs-dismiss="modal"></input>
+         </div>
+      </form>
+    </div>
+  </div>
+</div>

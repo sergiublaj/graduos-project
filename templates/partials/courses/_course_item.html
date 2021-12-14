@@ -1,0 +1,40 @@
+{% include 'partials/modals/_leave_course_modal.html' %}
+{% include 'partials/modals/_delete_course_modal.html' %}
+
+{% if course %}
+   <div class="col mb-4">
+      <div class="card text-center shadow p-3 mb-5 bg-white rounded" style="height: 20rem">
+         <div class="card-img-top">
+            {% if course.photo %}
+               <img class="card-img-top course-item-photo" src="{{course.photo.url}}">
+            {% else %}
+               <i class="fas fa-book fa-fw fa-7x"></i>
+            {% endif %}
+         </div>
+
+         <div class="card-body">
+            <h5 class="card-title">{{course.name}}</h5>
+            <p class="card-text">{{course.description}}</p>
+         </div>
+         
+         <div class="card-footer">
+            <a href="#" class="btn btn-success">View</a>
+            {% if is_student %}
+               <a href="javascript:{
+                  document.getElementById('current_course_id').value = {{course.id}};
+                  document.getElementById('leave_course_name_span').textContent = `Are you sure you want to leave course {{course.name}}?`;
+                  document.getElementById('leave_course_{{course.id}}').click();
+               }" class="btn btn-primary">Leave</a>
+               <button type="button" id="leave_course_{{course.id}}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#leave_course_modal" style="display: none;" value=""></button>
+            {% else %}
+               <a href="javascript:{
+                  document.getElementById('current_course_id').value = {{course.id}};
+                  document.getElementById('delete_course_name_span').textContent = `Are you sure you want to delete course {{course.name}}?`;
+                  document.getElementById('delete_course_{{course.id}}').click();
+               }" class="btn btn-primary">Delete</a>
+               <button type="button" id="delete_course_{{course.id}}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete_course_modal" style="display: none;" value=""></button>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+{% endif %}

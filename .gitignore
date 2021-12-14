@@ -126,14 +126,4 @@ venv.bak/
 dmypy.json
 
 # Pyre type checker
-<<<<<<< HEAD
-<<<<<<< HEAD
 .pyre/
-=======
-.pyre/
->>>>>>> 87ca4fb (added authenticate functions)
-=======
-.pyre/
-
-photos/
->>>>>>> 3f7ecc9 (implemented auth actions)

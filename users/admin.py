@@ -1,12 +1,8 @@
 from django.contrib import admin
-<<<<<<< HEAD
-
-# Register your models here.
-=======
 from users.models import Person, Student, Professor
 
 class PersonAdmin(admin.ModelAdmin):
-   list_display = ('id', 'username', 'first_name', 'last_name', 'email', 'phone', 'country', 'address', 'birth_date', 'sex', 'registration_date', 'photo')
+   list_display = ('id', 'username', 'first_name', 'last_name', 'email', 'phone', 'country', 'address', 'birth_date', 'gender', 'registration_date', 'photo')
    list_display_links = ('id', 'username')
    search_fields = ('username', 'email')
    list_per_page = 25
@@ -64,4 +60,3 @@ class ProfessorAdmin(admin.ModelAdmin):
         return obj.person.user.last_name
 
 admin.site.register(Professor, ProfessorAdmin)
->>>>>>> 87ca4fb (added authenticate functions)

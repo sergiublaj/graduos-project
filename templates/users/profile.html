@@ -1,0 +1,271 @@
+{% extends 'base.html' %} {% load humanize %} {% block title %}| Profile
+{%endblock title %} {% block content %}
+
+<div class="container rounded bg-white mt-5 mb-5">
+	<form id="form_profile" action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% include 'partials/alerts/_alerts.html' %}
+		<div class="row">
+			<div class="col-md-3 border-right">
+				<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+					<img
+						class="rounded-circle mt-5"
+						width="150px"
+						src="{{person.photo.url}}"
+					/>
+					<div id="profile-photo-div"> </div>
+					<span class="font-weight-bold">{{person.user.username}}</span>
+					<span class="text-black-50">{{person.user.email}}</span>
+				</div>
+			</div>
+
+			<div class="col-md-5 border-right">
+				<div class="p-3 py-5">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h4 class="text-right">Profile Settings</h4>
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-md-12">
+							<label class="info_labels">Username</label>
+							<input
+								id="inputUsername"
+								name="inputUsername"
+								type="text"
+								class="form-control"
+								placeholder="Username"
+								value="{{person.user.username}}"
+								readonly
+							/>
+						</div>
+						<div class="col-md-12">
+							<label class="info_labels">Email</label>
+							<input
+								id="inputEmail"
+								name="inputEmail"
+								type="text"
+								class="form-control"
+								placeholder="Email"
+								value="{{person.user.email}}"
+								readonly
+							/>
+						</div>
+					</div>
+					<div class="row mt-2">
+						<div class="col-md-6">
+							<label class="info_labels">First Name</label>
+							<input
+								id="inputFirstname"
+								name="inputFirstname"
+								type="text"
+								class="form-control"
+								value="{{person.user.first_name}}"
+								placeholder="First name"
+								readonly
+							/>
+						</div>
+						<div class="col-md-6">
+							<label class="info_labels">Last Name</label>
+							<input
+								id="inputLastname"
+								name="inputLastname"
+								type="text"
+								class="form-control"
+								value="{{person.user.last_name}}"
+								placeholder="Last name"
+								readonly
+							/>
+						</div>
+					</div>
+					<div class="row mt-3">
+						<div class="col-md-12">
+							<label class="info_labels">Phone</label>
+							<input
+								id="inputPhone"
+								name="inputPhone"
+								type="text"
+								class="form-control"
+								placeholder="Phone number"
+								value="{{person.phone}}"
+								readonly
+							/>
+						</div>
+						<div class="col-md-12">
+							<label class="info_labels">Country</label>
+							<input
+								id="inputCountry"
+								name="inputCountry"
+								type="text"
+								class="form-control"
+								placeholder="Country"
+								value="{{person.country}}"
+								readonly
+							/>
+						</div>
+						<div class="col-md-12">
+							<label class="info_labels">Address</label>
+							<input
+								id="inputAddress"
+								name="inputAddress"
+								type="text"
+								class="form-control"
+								placeholder="Address"
+								value="{{person.address}}"
+								readonly
+							/>
+						</div>
+						<div class="col-md-12">
+							<label class="info_labels">Birth date</label
+							><input
+								id="inputBirth_date"
+								name="inputBirth_date"
+								type="text"
+								class="form-control"
+								placeholder="Birth date"
+								value="{{person.birth_date}}"
+								readonly
+							/>
+						</div>
+						<div class="col-md-12">
+							<label class="info_labels">Gender</label>
+							<input
+								id="inputGender"
+								name="inputGender"
+								type="text"
+								class="form-control"
+								placeholder="Gender"
+								value="{{person.gender}}"
+								readonly
+							/>
+						</div>
+					</div>
+					<div class="mt-5 text-center form-buttons-area">
+						<button id="form_profile_edit_button" class="btn btn-primary">
+							<i class="fas fa-edit"></i>
+							Edit profile
+						</button>
+					</div>
+				</div>
+			</div>
+
+			{% if is_student %}
+			<div class="col-md-4">
+				<div class="p-3 py-5">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h4 class="text-right">Student info</h4>
+					</div>
+					<div class="col-md-12">
+						<label class="info_labels">University</label>
+						<input
+							id="inputUniversity"
+							type="text"
+							class="form-control"
+							placeholder="University"
+							value="{{student.university}}"
+							readonly
+						/>
+					</div>
+					<div class="col-md-12">
+						<label class="info_labels">Faculty</label>
+						<input
+							id="inputFaculty"
+							type="text"
+							class="form-control"
+							placeholder="Faculty"
+							value="{{student.faculty}}"
+							readonly
+						/>
+					</div>
+					<div class="col-md-12">
+						<label class="info_labels">Study level</label>
+						<input
+							id="inputStudylevel"
+							type="text"
+							class="form-control"
+							placeholder="Study level"
+							value="{{student.study_level}}"
+							readonly
+						/>
+					</div>
+					<div class="col-md-12">
+						<label class="info_labels">Year of study</label>
+						<input
+							id="inputYear"
+							type="text"
+							class="form-control"
+							placeholder="Year of study"
+							value="{{student.study_year}}"
+							readonly
+						/>
+					</div>
+					<div class="col-md-12">
+						<label class="info_labels">Identification number</label>
+						<input
+							id="inputIdentification_no"
+							type="text"
+							class="form-control"
+							placeholder="ID"
+							value="{{student.identification_no}}"
+							readonly
+						/>
+					</div>
+				</div>
+			</div>
+			{% else %}
+			<div class="col-md-4">
+				<div class="p-3 py-5">
+					<div class="d-flex justify-content-between align-items-center mb-3">
+						<h4 class="text-right">Professor info</h4>
+					</div>
+					<div class="col-md-12">
+						<label class="info_labels">Department</label>
+						<input
+							id="inputDepartment"
+							type="text"
+							class="form-control"
+							placeholder="Department"
+							value="{{professor.department}}"
+							readonly
+						/>
+					</div>
+					<div class="col-md-12">
+						<label class="info_labels">Rank</label>
+						<input
+							id="inputRank"
+							type="text"
+							class="form-control"
+							placeholder="Rank"
+							value="{{professor.rank}}"
+							readonly
+						/>
+					</div>
+					<div class="col-md-12">
+						<label class="info_labels">Office address</label>
+						<input
+							id="inputOffice_address"
+							type="text"
+							class="form-control"
+							placeholder="Office address"
+							value="{{professor.office_address}}"
+							readonly
+						/>
+					</div>
+					<div class="col-md-12">
+						<label class="info_labels">Website</label>
+						<input
+							id="inputWebsite"
+							type="text"
+							class="form-control"
+							placeholder="Website"
+							value="{{professor.website}}"
+							readonly
+						/>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</form>
+</div>
+
+{% endblock %}

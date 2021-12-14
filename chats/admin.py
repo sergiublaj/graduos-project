@@ -1,8 +1,4 @@
 from django.contrib import admin
-<<<<<<< HEAD
-
-# Register your models here.
-=======
 from chats.models import Chat
 
 class ChatAdmin(admin.ModelAdmin):
@@ -12,4 +8,3 @@ class ChatAdmin(admin.ModelAdmin):
    list_per_page = 25
 
 admin.site.register(Chat, ChatAdmin)
->>>>>>> 87ca4fb (added authenticate functions)

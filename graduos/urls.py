@@ -6,6 +6,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('pages.urls')),
-    path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path('courses/', include('courses.urls')),
+    path('notifications/', include('notifications.urls')),
+    path('admin/', admin.site.urls),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'graduos.views.handle_not_found_error'
