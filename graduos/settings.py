@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'grades.apps.GradesConfig',
     'chats.apps.ChatsConfig',
     'notifications.apps.NotificationsConfig',
+    'files.apps.FilesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

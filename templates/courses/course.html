@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block title %}| Dashboard{% endblock title %} 
+{% block content %}
+
+{% include 'partials/modals/_leave_course_modal.html' %}
+{% include 'partials/modals/_delete_course_modal.html' %}
+
+{% if course and professor_users and course_files %}
+<div class="left_navbar">
+   <div id="wrapper">
+      <div id="sidebar-wrapper">
+         <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+            <li class="active">
+               <a href="#Home_id"><span class="fa-stack fa-lg pull-left"><i class="fas fa-home fa-stack-1x" aria-hidden="true"></i></span> Course Home </a>
+            </li>
+            <li>
+               <a href="#Files_id"><span class="fa-stack fa-lg pull-left"><i class="fas fa-file fa-stack-1x" aria-hidden="true"></i></span> Files </a>
+            </li>
+            <li>
+               <a href="#Assignments_id"><span class="fa-stack fa-lg pull-left"><i class="fas fa-bullhorn fa-stack-1x" aria-hidden="true"></i></span> Assignments </a>
+            </li>
+            <li>
+               <a href="#Participants_id"> <span class="fa-stack fa-lg pull-left"><i class="fas fa-users fa-stack-1x" aria-hidden="true"></i></span> Participants </a>
+            </li>
+            <li>
+               <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fas fa-comments fa-stack-1x" aria-hidden="true"></i></span> Forum </a>
+            </li>
+            <li>
+               {% if request.user in professor_users %}
+                  <a href="javascript:{
+                     document.getElementById('delete_course_name_span').textContent = `Are you sure you want to delete course {{course.name}}?`;
+                     document.getElementById('delete_course_{{course.id}}').click();
+                  }"><span class="fa-stack fa-lg pull-left"><i class="fas fa-trash fa-stack-1x" aria-hidden="true"></i></span> Delete </a>
+                  <button type="button" id="delete_course_{{course.id}}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete_course_modal" style="display: none;" value=""></button>
+               {% else %}
+                  <a href="javascript:{
+                     document.getElementById('leave_course_name_span').textContent = `Are you sure you want to leave course {{course.name}}?`;
+                     document.getElementById('leave_course_{{course.id}}').click();
+                  }"><span class="fa-stack fa-lg pull-left"><i class="fas fa-sign-out fa-stack-1x" aria-hidden="true"></i></span> Leave </a>
+                  <button type="button" id="leave_course_{{course.id}}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#leave_course_modal" style="display: none;" value=""></button>
+               {% endif %}
+            </li>
+         </ul>
+      </div>
+      
+      <div id="page-content-wrapper">
+         <div class="row">
+            <div class="row">
+               <div class="col">
+                  {% if course.photo %}
+                     <img class="card-img-top course-photo" src="{{course.photo.url}}" alt="course-photo" style=" margin-bottom: 10px;">
+                  {% else %}
+                     <i class="fas fa-book fa-fw fa-7x"></i>
+                  {% endif %}
+               </div>
+               <div class="col-lg-9" id="course_home">
+                  <a id="Home_id"><h3>{{course.name}}</h3></a>
+                  <p>{{course.description}}</p>
+               </div>
+            </div>
+         </div>
+
+         <hr>
+
+         <div id="files">
+            <div class="row">
+               <i class="col-1 fas fa-file fa-2x"></i>
+               <a id="Files_id" class="col" style="text-decoration: none"><h3>Files</h3></a>
+            </div>
+            
+            {% if request.user in professor_users %}
+               <form action="{% url 'add_file' course.id %}" method="POST" enctype="multipart/form-data">
+               {% csrf_token %}
+                  <div class="card" style="padding: 5px">
+                     <div class="row">
+                        <div class="col-5">
+                           <label>Name <span class="text-danger">*</span></label>
+                           <input type="text" name="filename" id="filename" class="form-control" placeholder="Filename" required>
+                        </div>
+
+                        <div class="col-4">
+                           <label>File <span class="text-danger">*</span></label>
+                           <input type="file" name="filecontent" id="filecontent" class="form-control" required>
+                        </div>
+
+                        <div class="col-3 text-end">
+                           <br>
+                           <button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus-circle"></i>Add File</button>
+                        </div>
+                     </div>
+                  </div>
+            </form>
+           {% endif %}
+
+            <table class="table table-striped">
+               <thead>
+                  <tr>
+                     <th>No</th>
+                     <th>File</th>
+                     <th>Size</th>
+                     <th>Modified</th>
+                     {% if request.user in professor_users %}
+                        <th>Actions</th>
+                     {% endif %}
+                  </tr>
+               </thead>
+            <tbody>
+               {% for file in course_files %}
+                  <tr>
+                     <td>{{forloop.counter}}</td>
+                     {% include 'partials/courses/_file_item.html' %}
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+
+         <hr>
+
+         <div id="assignments">
+            <div class="row">
+               <i class="col-1 fas fa-bullhorn fa-2x"></i>
+               <a id="Assignments_id" class="col" style="text-decoration: none"><h3>Assignments</h3></a>
+            </div>
+            
+            {% if request.user in professor_users %}
+               <form action="{% url 'add_file' course.id %}" method="POST" enctype="multipart/form-data">
+               {% csrf_token %}
+                  <div class="card" style="padding: 5px">
+                     <div class="row">
+                        <div class="col-5">
+                           <label>Name <span class="text-danger">*</span></label>
+                           <input type="text" name="filename" id="filename" class="form-control" placeholder="Filename" required>
+                        </div>
+
+                        <div class="col-4">
+                           <label>File <span class="text-danger">*</span></label>
+                           <input type="file" name="filecontent" id="filecontent" class="form-control" required>
+                        </div>
+
+                        <div class="col-3 text-end">
+                           <br>
+                           <button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus-circle"></i>Add File</button>
+                        </div>
+                     </div>
+                  </div>
+            </form>
+           {% endif %}
+
+            <table class="table table-striped">
+               <thead>
+                  <tr>
+                     <th>No</th>
+                     <th>File</th>
+                     <th>Size</th>
+                     <th>Modified</th>
+                     {% if request.user in professor_users %}
+                        <th>Actions</th>
+                     {% endif %}
+                  </tr>
+               </thead>
+            <tbody>
+               {% for file in course_files %}
+                  <tr>
+                     <td>{{forloop.counter}}</td>
+                     {% include 'partials/courses/_file_item.html' %}
+                  </tr>
+               {% endfor %}
+               </tbody>
+            </table>
+         </div>
+
+         <hr>
+
+         <div class="col-lg-24" id="participants">
+            <div class="row">
+               <i class="col-1 fas fa-users fa-2x"></i>
+               <a id="Participants_id" class="col" style="text-decoration: none"><h3>Participants</h3></a>
+            </div>
+
+            <table class="table table-striped">
+               <thead>
+                  <tr>
+                     <th colspan="2">Personal information</th>
+                     <th>Joined</th>
+                     <th>Last online</th>
+                     {% if request.user in professor_users %}
+                        <th>Actions</th>
+                     {% endif %}
+                  </tr>
+               </thead>
+
+               <tbody>
+                  {% for participant in course.professors.all %}
+                     {% include 'partials/courses/_participant_item.html' %}
+                  {% endfor %}
+                  
+                  {% for participant in course.students.all %}
+                     {% include 'partials/courses/_participant_item.html' %}
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+
+         <input type="hidden" id="current_course_id" name="course_id" value={{course.id}}>
+         <input type="hidden" id="current_participant_id" name="participant_id" value="0">
+         <input type="hidden" id="current_file_id" name="file_id" value="0">
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% comment %}                   
+<div class="col-lg-24" id="assignments">
+<a id="Assignments_id"><h3>Assignments</h3></a>
+<div class="row row-cols-1 row-cols-md-1">
+   <div class="col mb-8">
+      <div class="card text-center">
+         <div class="card-body">
+            <div><h5 class="card-title">Assignment 1</h5></div>
+            <div><p>Do a text containing 5 caracters in word</p></div>
+            <div class="row row-cols-1 row-cols-md-2">
+               <div class="col col-lg-2"style="text-align:right;"><p>Post date:</p></div>
+               <div class="col col-lg-16"style="text-align:left;"><p>12.03.2021</p></div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2">
+               <div class="col col-lg-2" style="text-align:right;"><p>Due date:</p></div>
+               <div class="col col-lg-16" style="text-align:left;"><p>12.03.2021</p></div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2">
+               <div class="col col-lg-2"style="text-align:right;"><p>Grade:</p></div>
+               <div class="col col-lg-16"style="text-align:left;"><p>10</p></div>
+            </div>
+         </div>   
+      </div>
+   </div>
+</div>
+{% endcomment %}
