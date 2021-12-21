@@ -71,8 +71,9 @@ def view_course(request, course_id):
         course = Course.objects.get(id=course_id)
         professor_users = [
             professor.person.user for professor in course.professors.all()]
-        student_users = [student.person.user for student in course.students.all()]
-        course_files = File.objects.filter(course = course)
+        student_users = [
+            student.person.user for student in course.students.all()]
+        course_files = File.objects.filter(course=course)
     except:
         return redirect('dashboard')
 

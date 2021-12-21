@@ -124,52 +124,6 @@
                <i class="col-1 fas fa-bullhorn fa-2x"></i>
                <a id="Assignments_id" class="col" style="text-decoration: none"><h3>Assignments</h3></a>
             </div>
-            
-            {% if request.user in professor_users %}
-               <form action="{% url 'add_file' course.id %}" method="POST" enctype="multipart/form-data">
-               {% csrf_token %}
-                  <div class="card" style="padding: 5px">
-                     <div class="row">
-                        <div class="col-5">
-                           <label>Name <span class="text-danger">*</span></label>
-                           <input type="text" name="filename" id="filename" class="form-control" placeholder="Filename" required>
-                        </div>
-
-                        <div class="col-4">
-                           <label>File <span class="text-danger">*</span></label>
-                           <input type="file" name="filecontent" id="filecontent" class="form-control" required>
-                        </div>
-
-                        <div class="col-3 text-end">
-                           <br>
-                           <button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus-circle"></i>Add File</button>
-                        </div>
-                     </div>
-                  </div>
-            </form>
-           {% endif %}
-
-            <table class="table table-striped">
-               <thead>
-                  <tr>
-                     <th>No</th>
-                     <th>File</th>
-                     <th>Size</th>
-                     <th>Modified</th>
-                     {% if request.user in professor_users %}
-                        <th>Actions</th>
-                     {% endif %}
-                  </tr>
-               </thead>
-            <tbody>
-               {% for file in course_files %}
-                  <tr>
-                     <td>{{forloop.counter}}</td>
-                     {% include 'partials/courses/_file_item.html' %}
-                  </tr>
-               {% endfor %}
-               </tbody>
-            </table>
          </div>
 
          <hr>
@@ -179,6 +133,25 @@
                <i class="col-1 fas fa-users fa-2x"></i>
                <a id="Participants_id" class="col" style="text-decoration: none"><h3>Participants</h3></a>
             </div>
+
+            {% if request.user in professor_users %}
+               <form action="{% url 'invite_participant' course.id %}" method="POST">
+               {% csrf_token %}
+                  <div class="card" style="padding: 5px">
+                     <div class="row">
+                        <div class="col-5">
+                           <label>Email <span class="text-danger">*</span></label>
+                           <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                        </div>
+
+                        <div class="col-3 text-end">
+                           <br>
+                           <button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus-circle"></i>Invite participant</button>
+                        </div>
+                     </div>
+                  </div>
+            </form>
+           {% endif %}
 
             <table class="table table-striped">
                <thead>
@@ -213,30 +186,3 @@
 {% endif %}
 
 {% endblock %}
-
-{% comment %}                   
-<div class="col-lg-24" id="assignments">
-<a id="Assignments_id"><h3>Assignments</h3></a>
-<div class="row row-cols-1 row-cols-md-1">
-   <div class="col mb-8">
-      <div class="card text-center">
-         <div class="card-body">
-            <div><h5 class="card-title">Assignment 1</h5></div>
-            <div><p>Do a text containing 5 caracters in word</p></div>
-            <div class="row row-cols-1 row-cols-md-2">
-               <div class="col col-lg-2"style="text-align:right;"><p>Post date:</p></div>
-               <div class="col col-lg-16"style="text-align:left;"><p>12.03.2021</p></div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2">
-               <div class="col col-lg-2" style="text-align:right;"><p>Due date:</p></div>
-               <div class="col col-lg-16" style="text-align:left;"><p>12.03.2021</p></div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2">
-               <div class="col col-lg-2"style="text-align:right;"><p>Grade:</p></div>
-               <div class="col col-lg-16"style="text-align:left;"><p>10</p></div>
-            </div>
-         </div>   
-      </div>
-   </div>
-</div>
-{% endcomment %}

@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'chats.apps.ChatsConfig',
     'notifications.apps.NotificationsConfig',
     'files.apps.FilesConfig',
+    'invitations.apps.InvitationsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

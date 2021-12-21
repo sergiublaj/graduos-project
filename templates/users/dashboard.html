@@ -12,6 +12,11 @@
    </h2>
    
    {% include 'partials/alerts/_alerts.html' %}
+
+   {% for invitation in invitations %}
+        {% include 'partials/invitations/_invitation_item.html' %}
+   {% endfor %}
+
    <div class="row row-cols-1 row-cols-md-3">
       
       {% if is_student %}
