@@ -5,14 +5,12 @@ from datetime import datetime, timedelta, date
 
 class Person(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(blank=True, null=True,
-                              upload_to='images/users/%Y/')
+    photo = models.ImageField(blank=True, upload_to='images/users/%Y/')
     phone = models.CharField(max_length=10)
     registration_date = models.DateTimeField(default=datetime.now, blank=True)
     country = models.CharField(max_length=64)
     address = models.CharField(max_length=128)
-    birth_date = models.DateField(
-        default=date.today() - timedelta(days=18 * 365))
+    birth_date = models.DateField(default=date.today() - timedelta(days=18 * 365))
     gender = models.CharField(default='F', max_length=1)
 
     def __str__(self):
@@ -26,8 +24,7 @@ class Student(models.Model):
     faculty = models.CharField(max_length=64)
     study_level = models.CharField(default="Bachelor", max_length=64)
     study_year = models.IntegerField(default=1)
-    final_grade = models.DecimalField(
-        max_digits=4, decimal_places=2, default=0, blank=True)
+    final_grade = models.DecimalField(max_digits=4, decimal_places=2, default=0, blank=True)
     accumulated_credits = models.IntegerField(default=0, blank=True)
     outstanding_credits = models.IntegerField(default=0, blank=True)
 

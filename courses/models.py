@@ -9,12 +9,9 @@ class Course(models.Model):
     semester = models.IntegerField()
     description = models.TextField(blank=True)
     credits_no = models.IntegerField(default=4)
-    photo = models.ImageField(blank=True, null=True,
-                              upload_to='images/courses/%Y/')
-    students = models.ManyToManyField(
-        Student, related_name='courses', default=[])
-    professors = models.ManyToManyField(
-        Professor, related_name='courses', default=[])
+    photo = models.ImageField(blank=True, upload_to='images/courses/%Y/')
+    students = models.ManyToManyField(Student, related_name='courses', default=[])
+    professors = models.ManyToManyField(Professor, related_name='courses', default=[])
 
     def __str__(self):
         return self.name

@@ -58,8 +58,6 @@ def download_file(request, course_id, file_id):
     if the_file.course != the_course:
         return redirect('dashboard')
     
-    print(the_file.filecontent)
-    
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     
     filepath = BASE_DIR + '/media/' + str(the_file.filecontent)
@@ -79,8 +77,6 @@ def download_file(request, course_id, file_id):
 def delete_file(request):
     if request.method != 'POST':
         return redirect('dashboard')
-
-    print(request.POST)
 
     course_id = request.POST['course_id']
     file_id = request.POST['file_id']

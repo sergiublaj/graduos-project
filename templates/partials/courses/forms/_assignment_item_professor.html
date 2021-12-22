@@ -1,0 +1,26 @@
+{% load humanize %}
+
+{% include 'partials/modals/_delete_assignment_modal.html' %}
+
+{% if course and assignment %}
+	<td><a href={% url 'download_assignment' course.id assignment.id %}>{{assignment.name}}</a></td>
+
+	<td>{{assignment.due_date}}</td>
+
+	<td>{{assignment.percentage}}%</td>
+
+	<td>
+		{% if request.user in professor_users%}
+			<div class="col-1 text-center">
+				<a href="javascript:{
+				document.getElementById('current_assignment_id').value = {{assignment.id}};
+				document.getElementById('delete_assignment_name_span').textContent = `Are you sure you want to delete assignment {{assignment.name}}?`;
+
+				document.getElementById('delete_assignment_{{assignment.id}}').click();
+				}"><i class="fas fa-ban fa-2x" aria-hidden="true"></i></a>
+				<button type="button" id="delete_assignment_{{assignment.id}}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete_assignment_modal" style="display: none;" value=""></button>
+			</div>
+
+		{% endif %}
+	</td>
+{% endif %}

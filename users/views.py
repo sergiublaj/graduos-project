@@ -1,6 +1,7 @@
 from django.contrib import messages, auth
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
+from grades.models import Grade
 
 from users.models import Person, Student, Professor
 from notifications.models import Notification
@@ -27,6 +28,7 @@ def register(request):
         register_professor(request)
 
     messages.success(request, 'Successfully registered! You can now log in.')
+    
     return redirect('login')
 
 
@@ -42,14 +44,17 @@ def register_user(request):
 
     if allUsers.filter(username=username).exists():
         messages.error(request, 'Username already taken!')
+        
         return render(request, 'users/register.html')
 
     if allUsers.filter(email=email).exists():
         messages.error(request, 'Email already taken!')
+        
         return render(request, 'users/register.html')
 
     if password != password2:
         messages.error(request, 'Passwords do not match!')
+        
         return render(request, 'users/register.html')
 
     user = User.objects.create_user(first_name=first_name, last_name=last_name,
@@ -127,7 +132,9 @@ def logout(request):
         return redirect('index')
 
     auth.logout(request)
+    
     messages.success(request, 'You are now logged out.')
+    
     return redirect('login')
 
 
@@ -168,6 +175,7 @@ def profile(request):
 
     try:
         student = Student.objects.get(person=person)
+        grades = Grade.objects.filter(student=student)
         is_student = True
         professor = None
     except:
@@ -179,7 +187,8 @@ def profile(request):
         'is_student': is_student,
         'person': person,
         'student': student,
-        'professor': professor
+        'professor': professor,
+        'grades': grades
     }
 
     return render(request, 'users/profile.html', context)

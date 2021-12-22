@@ -1,8 +1,10 @@
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 
 from courses.models import Course
+from grades.models import Professor_Assignment, Student_Assignment
 from notifications.views import create_notification
 from users.models import Person, Professor, Student
 from notifications.models import Notification
@@ -31,10 +33,12 @@ def create_course(request):
 
     if allCourses.filter(name=name).exists():
         messages.error(request, 'Course name already taken!')
+        
         return redirect('dashboard')
 
     if allCourses.filter(code=code).exists():
         messages.error(request, 'Course code already taken!')
+        
         return redirect('dashboard')
 
     course = Course.objects.create(name=name, code=code, year=year, semester=semester,
@@ -74,18 +78,25 @@ def view_course(request, course_id):
         student_users = [
             student.person.user for student in course.students.all()]
         course_files = File.objects.filter(course=course)
+        professor_assignments = Professor_Assignment.objects.filter(course=course)
+        student_assignments = []
+        for assignment in professor_assignments:
+            student_assignments += Student_Assignment.objects.filter(assignment=assignment)
+
     except:
         return redirect('dashboard')
 
     if request.user not in professor_users and request.user not in student_users:
-        messages.error(
-            request, 'You do not have permission to view that course!')
+        messages.error(request, 'You do not have permission to view that course!')
+        
         return redirect('dashboard')
 
     context = {
         'course': course,
         'professor_users': professor_users,
-        'course_files': course_files
+        'course_files': course_files,
+        'professor_assignments': professor_assignments,
+        'student_assignments': student_assignments
     }
 
     return render(request, 'courses/course.html', context)
@@ -107,10 +118,12 @@ def join_course(request):
 
     if not allCourses.filter(code=code).exists():
         messages.error(request, 'Course code does not exist!')
+        
         return redirect('dashboard')
 
     if student.courses.filter(code=code).exists():
         messages.error(request, 'You are already enrolled to that course')
+        
         return redirect('dashboard')
 
     course = Course.objects.get(code=code)
