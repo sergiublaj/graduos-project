@@ -106,6 +106,7 @@ def join_course(request):
     if request.method != 'POST':
         return redirect('dashboard')
 
+
     try:
         student = Student.objects.get(
             person=Person.objects.get(user=request.user))
