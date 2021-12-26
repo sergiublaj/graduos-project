@@ -1,0 +1,42 @@
+{% load humanize %}
+
+{% include 'partials/modals/_kick_participant_modal.html' %}
+
+<tr>
+	<td>
+	   <img src="{{participant.person.photo.url}}" alt="photo" class="img-fluid rounded-circle d-block" style="width: 100px; height: 100px">
+	</td>
+
+	<td>
+	   <h4>{{participant.person.user.last_name}} {{participant.person.user.first_name}}</h4>
+
+	   <div class="text-muted">
+		  <i class="fa fa-user-tag"></i>
+		  <span>{% if participant in course.students.all %} student {% else %} professor {% endif %}</span>
+	   </div>
+
+	   <div class="text-muted">
+		  <i class="fa fa-envelope fa-fw"></i>
+		  <span>{{participant.person.user.email}}</span>
+	   </div>
+	</td>
+
+	<td class="text-muted">{{participant.person.user.date_joined | timesince}}</td>
+
+	<td class="text-muted">{{participant.person.user.last_login | timesince}}</td>
+
+	{% if request.user in professor_users %}
+		<td>
+			{% if participant not in course.professors.all  %}
+				<div class="col-1 text-center">
+					<a href="javascript:{
+					document.getElementById('current_participant_id').value = {{participant.person.user.id}};
+					document.getElementById('kick_participant_name_span').textContent = `Are you sure you want to kick {{participant.person.user.last_name}} {{participant.person.user.first_name}} from course {{course.name}}?`;
+					document.getElementById('kick_participant_{{participant.person.user.id}}').click();
+					}"><i class="fas fa-minus-circle fa-2x" aria-hidden="true"></i></a>
+					<button type="button" id="kick_participant_{{participant.person.user.id}}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kick_participant_modal" style="display: none;" value=""></button>
+				</div>
+			{% endif %}
+		</td>
+	{% endif %}
+ </tr>

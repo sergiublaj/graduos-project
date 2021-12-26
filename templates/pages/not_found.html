@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}| About{% endblock title %}
+{% block title %}| 404{% endblock title %}
 {% block content %}
 
-<h1>404 | Page not found!</h1>
+<div>
+   <div class="d-flex justify-content-center">
+      <i class="fas fa-bug fa-7x"></i>
+      <h1 class="display-1">404</h1>
+   </div>
+   <div class="d-flex justify-content-center">
+      <h3>Page you are looking for not found.</h3>
+   </div>
+</div>
 
 {% endblock %}

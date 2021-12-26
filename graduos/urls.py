@@ -8,10 +8,11 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('users/', include('users.urls')),
     path('courses/', include('courses.urls')),
+    path('files/', include('files.urls')),
+    path('grades/', include('grades.urls')),
+    path('invitations/', include('invitations.urls')),
+    path('notifications/', include('notifications.urls')),
     path('admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler400 = 'graduos.views.handler400'
-handler403 = 'graduos.views.handler403'
-handler404 = 'graduos.views.handler404'
-handler500 = 'graduos.views.handler500'
+handler404 = 'graduos.views.handle_not_found_error'

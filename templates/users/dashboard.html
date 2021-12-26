@@ -1,74 +1,36 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% load static %}
-{% block title %}| Dashboard{% endblock title %} 
+{% block title %}| Dashboard {% endblock title %} 
 {% block content %}
-<!-- Alerts -->
-{% include 'partials/_alerts.html' %}
-{% include 'partials/_create_course.html' %}
-{% include 'partials/_delete_course.html' %}
-{% include 'partials/_join_course.html' %}
 
 <div class="dashboard">
    <h1 class="center">Dashboard</h1>
+   <h2>
+      Logged in as {{user.first_name}} {{user.last_name}}. 
+      <a href={% url 'profile' %}>View profile</a>
+   </h2>
    
+   {% include 'partials/alerts/_alerts.html' %}
+
+   {% for invitation in invitations %}
+        {% include 'partials/invitations/_invitation_item.html' %}
+   {% endfor %}
+
    <div class="row row-cols-1 row-cols-md-3">
       
-         {% if is_student %}
-            <div class="col mb-4">
-               <div class="card" style="height: 20rem">
-                  <div class="card-image">
-                     <i class="fas fa-key fa-fw fa-7x"></i>
-                  </div>
-                  <div class="card-body">
-                     <h5 class="card-title">Join a course</h5>
-                     <p class="card-text">Join a course by entering the code given by teacher</p>
-                  </div>
-                  <div class="card-footer">   
-                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#join_course_modal"> Join </button>
-                  </div>
-               </div>
-            </div>
-         {% else %}
-            <div class="col mb-4">
-               <div class="card" style="height: 20rem">
-                  <div class="card-image">
-                     <i class="fas fa-plus-circle fa-fw fa-7x"></i>
-                  </div>
-                  <div class="card-body">
-                     <h5 class="card-title">Create a course</h5>
-                     <p class="card-text">Create a course, give the code to students and share the materials.</p>
-                  </div>
-                  <div class="card-footer">
-                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create_course_modal"> Create </button>
-                  </div>
-               </div>
-            </div>
-         {% endif %}
+      {% if is_student %}
+         {% include 'partials/courses/_join_course.html' %}
+      {% else %}
+         {% include 'partials/courses/_create_course.html' %}
+      {% endif %}
 
-         {% for course in courses %}
-            <div class="col mb-4">
-               <div class="card" style="height: 20rem">
-                  <div class="card-image">
-                     <i class="fas fa-book fa-fw fa-7x"></i>
-                     {% comment %} <img src = {{course.photo}} alt = {{course.name}} /> {% endcomment %}
-                  </div>
-                  <div class="card-body">
-                     <h5 class="card-title">{{course.name}}</h5>
-                     <p class="card-text">{{course.description}}</p>
-                  </div>
-                  <div class="card-footer">
-                     <button type="button" class="btn btn-success">View</button>
-                     {% if not is_student %}
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete_course_modal">Delete</button>
-                     {% endif %}
-                  </div>
-               </div>
-            </div>
-         {% endfor %}
+      {% for course in courses %}
+         {% include 'partials/courses/_course_item.html' %}
+      {% endfor %}
 
-
+      <input type="hidden" id="current_course_id" name="course_id" value="0">
    </div>
-</div class="dashboard">
+</div>
 
 {% endblock %}

@@ -3,20 +3,52 @@
 {% block title %} | Register{% endblock title %}
 {% block content %}
 
-{% include 'partials/_alerts.html' %}
-<div class="card mx-auto" style="width: 50rem;">
-  <div class="card-image">
-    <img src = {% static 'img/college.png' %} alt="" class="borderImg">
+<div class="card text-center mx-auto col-lg-7 sign-in-form">
+  <div class="card-img-top">
+    <img src = {% static 'img/college.png' %} alt="Register" class="form-image">
   </div>
 
-  <div class="card-body">
-   <!-- Alerts -->
-   {% include 'partials/_alerts.html' %}
-    <form action="{% url 'register' %}" method="POST">
-    {% csrf_token %}
+  <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  
+    <div class="card-body">
+      {% include 'partials/_alerts.html' %}
+
+      <div class="form-group row justify-content-md-center">
+        <i class="fas fa-user fa-2x col-sm-1"></i>
+        <label for="inputUsername" class="col-sm-3 col-form-label">Username</label>
+        <div class="col-sm-7">
+          <input type="text" name="username" class="form-control" id="inputUsername" placeholder="Username" required>
+        </div>
+      </div>
+      <br>
+      <div class="form-group row justify-content-md-center">
+        <i class="fas fa-key fa-2x col-sm-1"></i>
+        <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-7">
+          <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
+        </div>
+      </div>
+      <br>
+      <div class="form-group row justify-content-md-center">
+        <i class="fas fa-key fa-2x col-sm-1"></i>
+        <label for="inputConfirmPassword" class="col-sm-3 col-form-label">Confirm password</label>
+        <div class="col-sm-7">
+          <input type="password" name="password2" class="form-control" id="inputConfirmPassword" placeholder="Confirm password" required>
+        </div>
+      </div>
+      <br>
+      <div class="form-group row justify-content-md-center">
+        <i class="fas fa-at fa-2x col-sm-1"></i>
+        <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-7">
+          <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email" required>
+        </div>
+      </div>
+      <br>
       <div class="form-group row justify-content-md-center">
         <i class="far fa-user fa-2x col-sm-1"></i>
-        <label for="inputFirstname" class="col-sm-2 col-form-label">First name</label>
+        <label for="inputFirstname" class="col-sm-3 col-form-label">First name</label>
         <div class="col-sm-7">
           <input type="text" name="first_name" class="form-control" id="inputFirstname" placeholder="First name" required>
         </div>
@@ -24,47 +56,18 @@
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-user-tie fa-2x col-sm-1"></i>
-        <label for="inputLastname" class="col-sm-2 col-form-label">Last name</label>
+        <label for="inputLastname" class="col-sm-3 col-form-label">Last name</label>
         <div class="col-sm-7">
           <input type="text" name="last_name" class="form-control" id="inputLastname" placeholder="Last name" required>
         </div>
       </div>
       <br>
-      <div class="form-group row justify-content-md-center">
-        <i class="fas fa-user fa-2x col-sm-1"></i>
-        <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
-        <div class="col-sm-7">
-          <input type="text" name="username" class="form-control" id="inputUsername" placeholder="Username" required>
-        </div>
-      </div>
-      <br>
-       <div class="form-group row justify-content-md-center">
-        <i class="fas fa-key fa-2x col-sm-1"></i>
-        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-        <div class="col-sm-7">
-          <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
-        </div>
-      </div>
-      <br>
-       <div class="form-group row justify-content-md-center">
-        <i class="fas fa-key fa-2x col-sm-1"></i>
-        <label for="inputConfirmPassword" class="col-sm-2 col-form-label">Confirm password</label>
-        <div class="col-sm-7">
-          <input type="password" name="password2" class="form-control" id="inputConfirmPassword" placeholder="Confirm password" required>
-        </div>
-      </div>
-      <br>
-       <div class="form-group row justify-content-md-center">
-        <i class="fas fa-at fa-2x col-sm-1"></i>
-        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-        <div class="col-sm-7">
-          <input type="email" name="email" class="form-control" id="inputlEmail" placeholder="Email" required>
-        </div>
-      </div>
-      <br>
+      
+      <hr>
+      
       <div class="form-group row justify-content-md-center">
         <i class="far fa-image fa-2x col-sm-1"></i>
-        <label for="inputPhoto" class="col-sm-2 col-form-label">Photo</label>
+        <label for="inputPhoto" class="col-sm-3 col-form-label">Photo</label>
         <div class="col-sm-7">
           <input type="file" name="photo" class="form-control" id="inputPhoto">
         </div>
@@ -72,7 +75,7 @@
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-mobile-alt fa-2x col-sm-1"></i>
-        <label for="inputPhone" class="col-sm-2 col-form-label">Phone</label>
+        <label for="inputPhone" class="col-sm-3 col-form-label">Phone</label>
         <div class="col-sm-7">
           <input type="tel" name="phone" class="form-control" id="inputPhone">
         </div>
@@ -80,7 +83,7 @@
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-globe-europe fa-2x col-sm-1"></i></i>
-        <label for="inputCountry" class="col-sm-2 col-form-label">Country</label>
+        <label for="inputCountry" class="col-sm-3 col-form-label">Country</label>
         <div class="col-sm-7">
           <input type="text" name="country" class="form-control" id="inputCountry" placeholder="Country">
         </div>
@@ -88,7 +91,7 @@
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-map-marked-alt fa-2x col-sm-1"></i></i>
-        <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
+        <label for="inputAddress" class="col-sm-3 col-form-label">Address</label>
         <div class="col-sm-7">
           <input type="text" name="address" class="form-control" id="inputAddress" placeholder="Address">
         </div>
@@ -96,15 +99,15 @@
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-calendar-day fa-2x col-sm-1"></i></i>
-        <label for="inputBirth_date" class="col-sm-2 col-form-label">Birth_date</label>
+        <label for="inputBirth_date" class="col-sm-3 col-form-label">Birthdate</label>
         <div class="col-sm-7">
-          <input type="date" name="birth_date" class="form-control" id="inputBirth_date" placeholder="Birth date">
+          <input type="date" name="birth_date" class="form-control" id="inputBirthdate" placeholder="Birth date">
         </div>
       </div>
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-genderless fa-2x col-sm-1"></i></i>
-        <label for="inputGender" class="col-sm-2 col-form-label">Gender</label>
+        <label for="inputGender" class="col-sm-3 col-form-label">Gender</label>
         <div class="col-sm-7">
           <label>
             <input name="gender" type="radio" value="F"> F
@@ -117,7 +120,7 @@
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-graduation-cap fa-2x col-sm-1"></i></i>
-        <label for="inputStudent" class="col-sm-2 col-form-label">Student</label>
+        <label for="inputStudent" class="col-sm-3 col-form-label">Student</label>
         <div class="col-sm-7">
             <label>
                 <input name="is_student" type="radio" value="True"> Yes
@@ -128,9 +131,12 @@
         </div>
       </div>
       <br>
+
+      <hr>
+
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-university fa-2x col-sm-1"></i></i>
-        <label for="inputUniversity" class="col-sm-2 col-form-label">University</label>
+        <label for="inputUniversity" class="col-sm-3 col-form-label">University</label>
         <div class="col-sm-7">
           <input type="text" name="university" class="form-control" id="inputUniversity" placeholder="University">
         </div>
@@ -138,7 +144,7 @@
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-book fa-2x col-sm-1"></i></i>
-        <label for="inputFaculty" class="col-sm-2 col-form-label">Faculty</label>
+        <label for="inputFaculty" class="col-sm-3 col-form-label">Faculty</label>
         <div class="col-sm-7">
           <input type="text" name="faculty" class="form-control" id="inputFaculty" placeholder="Faculty">
         </div>
@@ -146,20 +152,20 @@
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-signal fa-2x col-sm-1"></i></i>
-        <label for="inputStudy" class="col-sm-2 col-form-label">Study level</label>
+        <label for="inputStudy" class="col-sm-3 col-form-label">Study level</label>
         <div class="col-sm-7">
-            <input name="study_level" type="radio" value="bachelor">
-                                <label for="license">Bachelor</label>
-            <input name="study_level" type="radio" value="master">
-                                <label for="master">Master</label>
-            <input name="study_level" type="radio"value="doctor">
-                                <label for="doctor">Doctor</label>
+            <input type="radio" name="study_level" value="Bachelor">
+                                <label for="license">Bachelor</label>
+            <input type="radio" name="study_level" value="Master">
+                                <label for="Master">Master</label>
+            <input type="radio" name="study_level" value="Doctor">
+                                <label for="Doctor">Doctor</label>
         </div>
       </div>
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="far fa-plus-square fa-2x col-sm-1"></i></i>
-        <label for="inputYear" class="col-sm-2 col-form-label">Year of study</label>
+        <label for="inputYear" class="col-sm-3 col-form-label">Year of study</label>
         <div class="col-sm-7">
           <input type="number" name="study_year" class="form-control" id="inputYear" placeholder="0" min="1" max="6">
         </div>
@@ -167,47 +173,52 @@
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="far fa-id-card fa-2x col-sm-1"></i></i>
-        <label for="identification_no" class="col-sm-2 col-form-label">Identification number</label>
+        <label for="identification_no" class="col-sm-3 col-form-label">Identification number</label>
         <div class="col-sm-7">
-          <input type="number" name="identification_no" class="form-control" id="identification_no" placeholder="0">
+          <input type="number" name="identification_no" class="form-control" id="inputIdentification_no" placeholder="0">
         </div>
       </div>
       <br>
+
+      <hr>
+      
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-briefcase fa-2x col-sm-1"></i></i>
-        <label for="department" class="col-sm-2 col-form-label">Department</label>
+        <label for="department" class="col-sm-3 col-form-label">Department</label>
         <div class="col-sm-7">
-          <input type="text" name="department" class="form-control" id="department" placeholder="Department">
+          <input type="text" name="department" class="form-control" id="inputDepartment" placeholder="Department">
         </div>
       </div>
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-layer-group fa-2x col-sm-1"></i></i>
-        <label for="rank" class="col-sm-2 col-form-label">Rank</label>
+        <label for="rank" class="col-sm-3 col-form-label">Rank</label>
         <div class="col-sm-7">
-          <input type="text" name="rank" class="form-control" id="rank" placeholder="Rank">
+          <input type="text" name="rank" class="form-control" id="inputRank" placeholder="Rank">
         </div>
       </div>
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="fas fa-map-marked-alt fa-2x col-sm-1"></i></i>
-        <label for="office_address" class="col-sm-2 col-form-label">Office arddress</label>
+        <label for="office_address" class="col-sm-3 col-form-label">Office arddress</label>
         <div class="col-sm-7">
-          <input type="text" name="office_address" class="form-control" id="office_address" placeholder="Office address">
+          <input type="text" name="office_address" class="form-control" id="inputOffice_address" placeholder="Office address">
         </div>
       </div>
       <br>
       <div class="form-group row justify-content-md-center">
         <i class="far fa-browser fa-2x col-sm-1"></i></i>
-        <label for="website" class="col-sm-2 col-form-label">Website</label>
+        <label for="website" class="col-sm-3 col-form-label">Website</label>
         <div class="col-sm-7">
-          <input type="website" name="website" class="form-control" id="website" placeholder="Website">
+          <input type="website" name="website" class="form-control" id="inputWebsite" placeholder="Website">
         </div>
       </div>
-      <br>
-      <input class="btn btn" type="Submit" class="form-control" value="Register">
-      <br>
+    </div>
+
+    <div class="card-footer">
+      <input class="btn btn-block btn-primary text-center" type="Submit" class="form-control" value="Register">
+    </div>
+
     </form>
-  </div>
 </div>
 {% endblock %}

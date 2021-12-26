@@ -9,19 +9,25 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav">
-				<a class="nav-item nav-link" href = {% url 'index' %}> Home</a>
-				<a class="nav-item nav-link" href = {% url 'about' %}> About</a>
-				{% if user.is_authenticated %}
-					<a class="nav-item nav-link" href="{% url 'dashboard' %}">Welcome, {{user.username}} (dashboard)</a>
+				<a class="nav-item nav-link {% if '/' == request.path %}active{% endif %}" href = {% url 'index' %}> Home</a>
+				<a class="nav-item nav-link {% if 'about' in request.path %}active{% endif %}" href = {% url 'about' %}> About</a>
+				{% if user.is_authenticated and not request.user.is_superuser %}
+					<a class="nav-item nav-link {% if 'users' in request.path or 'courses' in request.path%}active{% endif %}" href="{% url 'dashboard' %}">Dashboard</a>
 				{% endif %}
 			</div>
 
 			<div class="navbar-nav ms-auto">
 				{% if user.is_authenticated %}
+					<a class="nav-item nav-link" href="#">
+						<i class="fas fa-comment"></i>
+					</a>
+					<a class="nav-item nav-link {% if 'notifications' in request.path %}active{% endif %}" href="{% url 'view_notifications' %}">
+						<i class="fas fa-bell"></i>
+					</a>
 					<a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">
 						<i class="fas fa-sign-out-alt"></i> Logout
 					</a>
-					<form action="{% url 'logout' %}" method="POST" id="logout">
+					<form id="logout" action="{% url 'logout' %}" method="POST">
 						{% csrf_token %}
 						<input type="hidden">
 					</form>
@@ -38,40 +44,3 @@
 		</div>
 	</div>
 </nav>
-
-{% comment %} 
-<nav class="navbar">
-	<ul class="topnav" id="dropdownClick">
-		<li><a href = {% url 'index' %}>Home</a></li>
-		{% if user.is_authenticated %}
-			<li>
-				<a href="{% url 'dashboard' %}">Welcome, {{user.username}} (dashboard)</a>
-			</li>
-		{% endif %}
-		<li><a href = {% url 'contact' %}>Contact</a></li>
-		<li><a href = {% url 'about' %}>About</a></li>
-		{% if user.is_authenticated %}
-			<li class = "topnav-right">
-				<a href="javascript:{document.getElementById('logout').submit()}">
-					<i class="fas fa-sign-out-alt"> </i> Logout
-				</a>
-				<form action="{% url 'logout' %}" method="POST" id="logout">
-					{% csrf_token %}
-					<input type="hidden">
-				</form>
-			</li>
-		{% else %}
-			<li class = "topnav-right">
-				<a href="{% url 'register' %}">
-					<i class="fas fa-user-plus"> </i> Register
-				</a>
-			</li>
-			<li class = "topnav-right">
-				<a href="{% url 'login' %}">
-					<i class="fas fa-sign-in-alt"> </i> Login
-				</a>
-			</li>
-		{% endif %}
-		<li class="dropdownIcon"><a href="javascript:void(0)" onclick="dropdownMenu()">&#9776;</a></li>
-	</ul>
-</nav> {% endcomment %}

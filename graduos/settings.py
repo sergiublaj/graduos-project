@@ -1,3 +1,4 @@
+from django.contrib.messages import constants as messages
 import os
 
 from pathlib import Path
@@ -25,6 +26,9 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'grades.apps.GradesConfig',
     'chats.apps.ChatsConfig',
+    'notifications.apps.NotificationsConfig',
+    'files.apps.FilesConfig',
+    'invitations.apps.InvitationsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -112,7 +116,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-#Authentication backends
+# Authentication backends
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -135,7 +139,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Messages
-from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }

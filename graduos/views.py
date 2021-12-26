@@ -1,13 +1,5 @@
 from django.shortcuts import render
 
-def handler400(request, exception):
-   return render(request, 'pages/not_found.html')
 
-def handler403(request, exception):
-   return render(request, 'pages/not_found.html')
-
-def handler404(request, exception):
-   return render(request, 'pages/not_found.html')
-
-def handler500(request, *args, **argv):
+def handle_not_found_error(request, _):
     return render(request, 'pages/not_found.html')

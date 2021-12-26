@@ -1,0 +1,33 @@
+<div class="modal fade" id="kick_participant_modal" tabindex="-1" role="dialog" aria-labelledby="kick_participant_modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Kick participant</h5>
+      </div>
+      <div class="modal-body row">
+        <div class="col-2">
+          <i class="fa fa-question-circle fa-3x align-middle"></i>
+        </div>
+        <div class="col-8">
+          <span id="kick_participant_name_span"></span>
+        </div>
+      </div>
+      <div class="modal-footer">     
+        <a href="javascript:{
+          let course_id = document.getElementById('current_course_id').value;
+          document.getElementById('kick_course_id').value = course_id;
+          let participant_id = document.getElementById('current_participant_id').value;
+          document.getElementById('kick_participant_id').value = participant_id;
+          document.getElementById('kick_participant').submit();
+        }" class="btn btn-primary">Kick</a>
+        <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</a>
+
+        <form id="kick_participant" action="{% url 'kick_participant' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" id="kick_course_id" name="course_id">
+          <input type="hidden" id="kick_participant_id" name="participant_id">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

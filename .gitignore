@@ -51,6 +51,9 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+# Media
+media
+
 # Translations
 *.mo
 *.pot
@@ -126,8 +129,8 @@ venv.bak/
 dmypy.json
 
 # Pyre type checker
+<<<<<<< HEAD
 .pyre/
-
-photos/
-
-.idea
+=======
+.pyre/
+>>>>>>> 95f4f7d8b2dbfe38aff590b16199fc3ce68396e9
