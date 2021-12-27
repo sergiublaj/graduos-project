@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block title %}| Dashboard {% endblock title %} 
+{% block content %}
+
+<div class="dashboard">
+   <h1 class="center">Dashboard</h1>
+   <h2>
+      Logged in as {{user.first_name}} {{user.last_name}}. 
+      <a href={% url 'profile' %}>View profile</a>
+   </h2>
+   
+   {% include 'partials/alerts/_alerts.html' %}
+
+   {% for invitation in invitations %}
+        {% include 'partials/invitations/_invitation_item.html' %}
+   {% endfor %}
+
+   <div class="row row-cols-1 row-cols-md-3">
+      
+      {% if is_student %}
+         {% include 'partials/courses/_join_course.html' %}
+      {% else %}
+         {% include 'partials/courses/_create_course.html' %}
+      {% endif %}
+
+      {% for course in courses %}
+         {% include 'partials/courses/_course_item.html' %}
+      {% endfor %}
+
+      <input type="hidden" id="current_course_id" name="course_id" value="0">
+   </div>
+</div>
+
+{% endblock %}

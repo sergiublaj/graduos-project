@@ -1,0 +1,41 @@
+{% if notification %}
+    <div class="card shadow p-3 mb-5 bg-secondary bg-gradient rounded">
+        <div class="card-body">
+            <div class="card-title row">
+                <div class="col-sm row">
+                    {% if notification.unread %}
+                        <div class="col-sm-1">
+                            <a href="javascript:{document.getElementById('read_notification_{{notification.id}}').submit()}">
+                                <i class="fas fa-circle"></i>
+                            </a>
+                            
+                            <form id="read_notification_{{notification.id}}" action="{% url 'read_notification' notification.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden">
+                            </form>
+                        </div>
+                    {% endif %}
+                    <h5 class="col-sm">{{notification.title}}</h5>
+                </div> 
+
+                <div class="text-end col-sm">
+                    <a href="javascript:{document.getElementById('delete_notification_{{notification.id}}').submit()}">
+						<i class="fas fa-trash-alt"></i>
+					</a>
+					<form id="delete_notification_{{notification.id}}" action="{% url 'delete_notification' notification.id %}" method="POST">
+						{% csrf_token %}
+						<input type="hidden">
+					</form>
+                </div>
+            </div>
+
+            {% if notification.unread %}
+                <p class="card-text fw-bold">{{notification.description}}</p>
+            {% else %}
+                <p class="card-text">{{notification.description}}</p>
+            {% endif %}
+            
+            <div class="text-end fst-italic"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{notification.date}}</div>
+        </div>
+    </div>
+{% endif %}

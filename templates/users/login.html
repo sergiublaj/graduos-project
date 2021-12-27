@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} | Login{% endblock title %}
+{% block content %}
+
+
+<div class="card text-center mx-auto col-lg-7 sign-in-form">
+  <div class="card-img-top">
+    <img src = {% static 'img/college.png' %} alt="Log in" class="form-image">
+  </div>
+
+  <form action="{% url 'login' %}" method="POST">
+  {% csrf_token %}
+
+    <div class="card-body">
+      {% include 'partials/alerts/_alerts.html' %}
+      <div class="form-group row justify-content-md-center">
+        <i class="fas fa-user fa-2x col-sm-1"></i>
+        <label for="inputUsername" class="col-sm-3 col-form-label">Username</label>
+        <div class="col-sm-7">
+          <input type="text" name="username" class="form-control" id="inputUsername" placeholder="Username" required>
+        </div>
+      </div>
+      <br>
+        <div class="form-group row justify-content-md-center">
+        <i class="fas fa-key fa-2x col-sm-1"></i>
+        <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-7">
+          <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <input class="btn btn-block btn-primary text-center" type="Submit" name="Login" class="form-control" value="Log in">
+    </div>
+    
+  </form>
+</div>
+
+{% endblock %}

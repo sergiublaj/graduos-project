@@ -1,0 +1,25 @@
+{% if invitation %}
+<div class="card shadow bg-warning bg-gradient rounded">
+    <div class="card-body">
+        <h5 class="col-sm">New invitation</h5>
+        
+        <p>You have been invited to join course {{invitation.course}} by {{invitation.from_user.last_name}}      {{invitation.from_user.first_name}} </p>
+
+        <div class="row">
+            <form class="col" action="{% url 'accept_invitation' invitation.id %}" method="POST">
+            {% csrf_token %}
+                <input type="submit" class="btn btn-primary" value="Accept"></input>
+            </form>
+
+            <form class="col" action="{% url 'decline_invitation' invitation.id %}" method="POST">
+            {% csrf_token %}
+                <input type="submit" class="btn btn-secondary" value="Decline"></input>
+            </form>
+
+            <span class="col text-end fst-italic">
+                <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{invitation.date}}
+            </span>
+        </div>
+    </div>
+</div>
+{% endif %}
