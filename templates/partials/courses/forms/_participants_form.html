@@ -1,0 +1,18 @@
+{% if request.user in professor_users %}
+	<form action="{% url 'invite_participant' course.id %}" method="POST">
+	{% csrf_token %}
+		<div class="card" style="padding: 5px">
+			<div class="row">
+			<div class="col mx-auto">
+				<label>Email <span class="text-danger">*</span></label>
+				<input type="email" name="email" class="form-control" placeholder="Email" required>
+			</div>
+
+			<div class="col text-end">
+				<br>
+				<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus-circle"></i>Invite participant</button>
+			</div>
+			</div>
+		</div>
+</form>
+{% endif %}

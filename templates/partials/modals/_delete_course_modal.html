@@ -5,9 +5,13 @@ aria-labelledby="delete_course_modal" aria-hidden="true">
       <div class="modal-header">
         <h5 class="modal-title">Delete course</h5>
       </div>
-      <div class="modal-body">
-        <i class="fa fa-exclamation-circle fa-3x align-middle"></i>
-        <span id="delete_course_name_span"></span>
+      <div class="modal-body row">
+        <div class="col-2">
+          <i class="fa fa-exclamation-circle fa-3x align-middle"></i>
+        </div>
+        <div class="col-8">
+          <span id="delete_course_name_span"></span>
+        </div>
       </div>
       <div class="modal-footer">     
         <a href="javascript:{
@@ -17,7 +21,7 @@ aria-labelledby="delete_course_modal" aria-hidden="true">
         }" class="btn btn-primary">Delete</a>
         <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</a>
 
-        <form id="delete_course" action="{% url 'delete_course' 0 %}" method="POST">
+        <form id="delete_course" action="{% url 'delete_course' %}" method="POST">
           {% csrf_token %}
           <input type="hidden" id="delete_course_id" name="course_id">
         </form>

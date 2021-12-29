@@ -1,10 +1,12 @@
 from django.contrib import messages, auth
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
+from grades.models import Grade
 
 from users.models import Person, Student, Professor
 from notifications.models import Notification
 from notifications.views import create_notification
+from invitations.models import Invitation
 
 
 def register(request):
@@ -26,6 +28,7 @@ def register(request):
         register_professor(request)
 
     messages.success(request, 'Successfully registered! You can now log in.')
+    
     return redirect('login')
 
 
@@ -41,14 +44,17 @@ def register_user(request):
 
     if allUsers.filter(username=username).exists():
         messages.error(request, 'Username already taken!')
+        
         return render(request, 'users/register.html')
 
     if allUsers.filter(email=email).exists():
         messages.error(request, 'Email already taken!')
+        
         return render(request, 'users/register.html')
 
     if password != password2:
         messages.error(request, 'Passwords do not match!')
+        
         return render(request, 'users/register.html')
 
     user = User.objects.create_user(first_name=first_name, last_name=last_name,
@@ -112,7 +118,7 @@ def login(request):
     user = auth.authenticate(username=username, password=password)
 
     if user is None:
-        
+
         messages.error(request, 'Invalid credentials!')
         return redirect('login')
 
@@ -124,9 +130,11 @@ def login(request):
 def logout(request):
     if request.method != 'POST':
         return redirect('index')
-    
+
     auth.logout(request)
+    
     messages.success(request, 'You are now logged out.')
+    
     return redirect('login')
 
 
@@ -145,8 +153,14 @@ def dashboard(request):
         courses = professor.courses.all()
         is_student = False
 
+    try:
+        invitations = Invitation.objects.filter(to_user=request.user).filter(closed = False)
+    except:
+        invitations = None
+
     context = {
         'courses': courses,
+        'invitations': invitations,
         'is_student': is_student
     }
 
@@ -161,6 +175,7 @@ def profile(request):
 
     try:
         student = Student.objects.get(person=person)
+        grades = Grade.objects.filter(student=student)
         is_student = True
         professor = None
     except:
@@ -172,7 +187,8 @@ def profile(request):
         'is_student': is_student,
         'person': person,
         'student': student,
-        'professor': professor
+        'professor': professor,
+        'grades': grades
     }
 
     return render(request, 'users/profile.html', context)
@@ -181,29 +197,29 @@ def profile(request):
 def edit_profile(request):
     if request.method != 'POST':
         return redirect('profile')
-    
+
     if not request.user.is_authenticated:
         return redirect('index')
-    
+
     photo = request.FILES.get('inputPhoto', None)
     username = request.POST['inputUsername']
     email = request.POST['inputEmail']
     phone = request.POST['inputPhone']
     country = request.POST['inputCountry']
     address = request.POST['inputAddress']
-    
+
     user = request.user
     user.username = username
     user.email = email
     user.save()
-    
-    person = Person.objects.get(user = request.user)
+
+    person = Person.objects.get(user=request.user)
     person.photo = photo if photo != None else person.photo
     person.phone = phone
     person.address = address
     person.country = country
     person.save()
-    
+
     notification = get_profile_edit_notification(request)
 
     return create_notification(request, 'profile', notification)
@@ -214,7 +230,7 @@ def get_profile_edit_notification(request):
 
     title = 'Profile changes'
     description = ('\n').join(('Congratulations!',
-                                'You have successfully changed your personal information.',
+                               'You have successfully changed your personal information.',
                                'Navigate to dashboard/profile and see your information.'))
 
     notification = Notification.objects.create(
