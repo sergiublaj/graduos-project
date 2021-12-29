@@ -27,7 +27,7 @@ class Student_Assignment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.DO_NOTHING)
     assignment = models.ForeignKey(
         Professor_Assignment, on_delete=models.CASCADE)
-    grade = models.DecimalField(max_digits=3, decimal_places=2, default=0)
+    grade = models.DecimalField(max_digits=4, decimal_places=2, default=0)
     submitted = models.BooleanField(default=False)
     task_file = models.FileField(upload_to='assignments/%Y/', null=True)
     uploaded_date = models.DateTimeField(default=datetime.now)

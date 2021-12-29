@@ -243,16 +243,24 @@ def grade_submission(request, course_id, assignment_id, submission_id):
 
     submission.grade = grade_value
     submission.save()
-    
+
+    print('daaaaaaaaaa')
+
     mark = 0
     try:
-        student_assignments = Student_Assignment.objects.filter(student = submission.student).filter(course = course)
+        student_assignments = Student_Assignment.objects.filter(student = submission.student).get(course = course)
         
         for student_assignment in student_assignments:
-            mark += student_assignment.grade * student_assignment.percentage / 100
+            print(student_assignment.grade)
+            mark += student_assignment.grade * student_assignment.assignment.percentage / 100
+            print(mark)
+
+        print(mark)
     except:
         pass
-    
+
+    print('nuuuuuuuuuuuuu')
+
     try:
         grade = Grade.objects.filter(student = submission.student).get(course = course)
         grade.grade = mark

@@ -182,6 +182,7 @@ def profile(request):
         professor = Professor.objects.get(person=person)
         is_student = False
         student = None
+        grades = None
 
     context = {
         'is_student': is_student,
