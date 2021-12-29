@@ -1,10 +1,45 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% load static %}
-{% block title %}| Home{% endblock title %} 
+{% block title %}| Home{% endblock title %}
+{% block contentHome %}
+<!-- Carousel -->
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+		  
+    <!-- The slideshow/carousel -->
+    <!-- Indicators/dots -->
+    <div class="carousel-indicators">
+        <button type="button" style="background-color: #165a72" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+        <button type="button" style="background-color: #165a72" data-bs-target="#demo" data-bs-slide-to="1"></button>
+        <button type="button" style="background-color: #165a72" data-bs-target="#demo" data-bs-slide-to="2"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="3000">
+        <div class="carousel-caption" style="color: #165a72">
+            <h2>A new way to learn</h2>
+        </div>
+        <img src="/static/img/homeImage.jpg" alt="" class="d-block w-100">
+        
+      </div>
+      <div class="carousel-item" data-bs-interval="3000">
+        <img src="/static/img/homeImage2.jpg" alt="" class="d-block w-100">
+      </div>
+      <div class="carousel-item" data-bs-interval="3000">
+        <img src="/static/img/homeImage3.jpg" alt="" class="d-block w-100">
+      </div>
+    </div>
+    <!-- Left and right controls/icons -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+
+  </div>
+  {% endblock %}
 {% block content %}
 
-<h1>Graduos</h1>
-<h2>A new way to learn</h2>
+
 
 {% endblock %}
