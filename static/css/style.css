@@ -3,6 +3,19 @@ html, body {
    overflow-x: hidden;
 }
 
+body {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+}
+
+footer {
+   margin-top: auto;
+}
+
+.carousel-caption {
+   color: #165a72;
+}
 .card {
    margin-top: 1em;
    margin-bottom: 1em;    
@@ -84,6 +97,7 @@ html, body {
    padding: 0;
    list-style: none;
    margin-top: 2px;
+   color:red;
 }
 
 .sidebar-nav li {
