@@ -33,12 +33,26 @@ def create_course(request):
 
     if allCourses.filter(name=name).exists():
         messages.error(request, 'Course name already taken!')
+<<<<<<< HEAD
         
+=======
+<<<<<<< HEAD
+=======
+        
+>>>>>>> origin/raul
+>>>>>>> master
         return redirect('dashboard')
 
     if allCourses.filter(code=code).exists():
         messages.error(request, 'Course code already taken!')
+<<<<<<< HEAD
         
+=======
+<<<<<<< HEAD
+=======
+        
+>>>>>>> origin/raul
+>>>>>>> master
         return redirect('dashboard')
 
     course = Course.objects.create(name=name, code=code, year=year, semester=semester,
@@ -67,6 +81,11 @@ def get_create_course_notification(request, name, code):
     return notification
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> master
 def view_course(request, course_id):
     if request.method != 'GET':
         return redirect('dashboard')
@@ -102,10 +121,18 @@ def view_course(request, course_id):
     return render(request, 'courses/course.html', context)
 
 
+<<<<<<< HEAD
+=======
+>>>>>>> origin/raul
+>>>>>>> master
 def join_course(request):
     if request.method != 'POST':
         return redirect('dashboard')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/raul
     try:
         student = Student.objects.get(
             person=Person.objects.get(user=request.user))
@@ -118,12 +145,26 @@ def join_course(request):
 
     if not allCourses.filter(code=code).exists():
         messages.error(request, 'Course code does not exist!')
+<<<<<<< HEAD
         
+=======
+<<<<<<< HEAD
+=======
+        
+>>>>>>> origin/raul
+>>>>>>> master
         return redirect('dashboard')
 
     if student.courses.filter(code=code).exists():
         messages.error(request, 'You are already enrolled to that course')
+<<<<<<< HEAD
         
+=======
+<<<<<<< HEAD
+=======
+        
+>>>>>>> origin/raul
+>>>>>>> master
         return redirect('dashboard')
 
     course = Course.objects.get(code=code)
@@ -149,6 +190,7 @@ def get_join_course_notification(request, name):
     return notification
 
 
+<<<<<<< HEAD
 def kick_participant(request):
     if request.method != 'POST':
         return redirect('dashboard')
@@ -214,6 +256,81 @@ def leave_course(request):
         return redirect('dashboard')
 
     course_id = request.POST['course_id']
+=======
+<<<<<<< HEAD
+def leave_course(request, fake_course_id):
+    if request.method != 'POST':
+        return redirect('dashboard')
+
+    course_id = fake_course_id if fake_course_id != 0 else request.POST['course_id']
+=======
+def kick_participant(request):
+    if request.method != 'POST':
+        return redirect('dashboard')
+
+    course_id = request.POST['course_id']
+    student_id = request.POST['participant_id']
+
+    try:
+        course = Course.objects.get(id=course_id)
+        professor = Professor.objects.get(
+            person=Person.objects.get(user=request.user))
+        student = Student.objects.get(
+            person=Person.objects.get(user=User.objects.get(id=student_id)))
+    except:
+        return redirect('dashboard')
+
+    if course not in professor.courses.all():
+        messages(request, 'You do not have that permission!')
+        return redirect('dashboard')
+
+    if course not in student.courses.all():
+        return redirect('dashboard')
+
+    course.students.remove(student)
+
+    student_notification = get_kick_student_notification(
+        course.name, professor.person.user, student.person.user)
+    student_notification.save()
+
+    professor_notification = get_kick_professor_notification(
+        course.name, professor.person.user, student.person.user)
+    professor_notification.save()
+
+    return redirect('view_course', course_id=course.id)
+
+
+def get_kick_student_notification(name, professor, student):
+    title = 'Kicked from course'
+    description = ('\n').join((f'You have been from course {name} by {professor.last_name} {professor.first_name}.',
+                              'You can message him to let him know the reason.',
+                               'All the best!'))
+
+    notification = Notification.objects.create(
+        user=student, title=title, description=description)
+
+    return notification
+
+
+def get_kick_professor_notification(name, professor, student):
+    title = 'Kicked student from course'
+    description = ('\n').join((f'You have successfully kicked {student.last_name} {student.first_name} from course {name}.',
+                              'You can message him to let him know the reason.',
+                               'All the best!'))
+
+    notification = Notification.objects.create(
+        user=professor, title=title, description=description)
+
+    return notification
+
+
+def leave_course(request):
+    if request.method != 'POST':
+        return redirect('dashboard')
+
+    course_id = request.POST['course_id']
+>>>>>>> origin/raul
+>>>>>>> master
 
     try:
         student = Student.objects.get(
@@ -246,11 +363,27 @@ def get_leave_course_notification(request, name):
     return notification
 
 
+<<<<<<< HEAD
 def delete_course(request):
     if request.method != 'POST':
         return redirect('dashboard')
 
     course_id = request.POST['course_id']
+=======
+<<<<<<< HEAD
+def delete_course(request, fake_course_id):
+    if request.method != 'POST':
+        return redirect('dashboard')
+
+    course_id = fake_course_id if fake_course_id != 0 else request.POST['course_id']
+=======
+def delete_course(request):
+    if request.method != 'POST':
+        return redirect('dashboard')
+
+    course_id = request.POST['course_id']
+>>>>>>> origin/raul
+>>>>>>> master
 
     try:
         professor = Professor.objects.get(

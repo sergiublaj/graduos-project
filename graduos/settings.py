@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'notifications.apps.NotificationsConfig',
     'files.apps.FilesConfig',
     'invitations.apps.InvitationsConfig',
+    'forum.apps.ForumConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,3 +143,9 @@ MEDIA_URL = '/media/'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> origin/raul
