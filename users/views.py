@@ -1,4 +1,5 @@
 from django.contrib import messages, auth
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
 from grades.models import Grade
@@ -7,6 +8,7 @@ from notifications.models import Notification
 from notifications.views import create_notification
 from users.models import Person, Student, Professor
 from users.user_builder import UserBuilder
+from users.user_observer import UserObservable, UserObserver
 
 
 def register(request):
@@ -20,9 +22,26 @@ def register(request):
 
     user_builder.register_account()
 
-    messages.success(request, 'Successfully registered! You can now log in.')
+    notification = get_register_notification(request)
 
-    return redirect('login')
+    user_observable = UserObservable()
+    user_observable.add_observer(UserObserver(request))
+    user_observable.set_state('Successfully registered! You can now log in.')
+    user_observable.notify_observers()
+
+    return create_notification(request, 'login', notification)
+
+
+def get_register_notification(request):
+    title = 'Welcome to Graduos!'
+    description = ('\n').join(('Congratulations!',
+                               'You have joined Graduos platform.',
+                               'Join courses and learn new things!'))
+
+    notification = Notification.objects.create(
+        user=User.objects.get(username=request.POST['username']), title=title, description=description)
+
+    return notification
 
 
 def login(request):
@@ -142,12 +161,15 @@ def edit_profile(request):
 
     notification = get_profile_edit_notification(request)
 
+    user_observable = UserObservable()
+    user_observable.add_observer(UserObserver(request))
+    user_observable.set_state('Successfully changed your profile.')
+    user_observable.notify_observers()
+
     return create_notification(request, 'profile', notification)
 
 
 def get_profile_edit_notification(request):
-    messages.success(request, f'Successfully changed your profile.')
-
     title = 'Profile changes'
     description = ('\n').join(('Congratulations!',
                                'You have successfully changed your personal information.',
