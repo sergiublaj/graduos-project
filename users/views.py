@@ -146,10 +146,6 @@ def edit_profile(request):
     phone = request.POST['inputPhone']
     country = request.POST['inputCountry']
     address = request.POST['inputAddress']
-<<<<<<< HEAD
-
-=======
->>>>>>> master
     user = request.user
     user.username = username
     user.email = email
