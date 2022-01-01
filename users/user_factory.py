@@ -15,8 +15,12 @@ class UserFactory:
             self.register_professor()
 
     def register_student(self):
-        person = Person.objects.get(user=User.objects.get(
-            username=self.request.POST['username']))
+        try:
+            person = Person.objects.get(user=User.objects.get(
+                username=self.request.POST['username']))
+        except:
+            return render(request, 'users/register.html')
+
         identification_no = self.request.POST['identification_no']
         university = self.request.POST['university']
         faculty = self.request.POST['faculty']
@@ -29,8 +33,12 @@ class UserFactory:
         student.save()
 
     def register_professor(self):
-        person = Person.objects.get(user=User.objects.get(
-            username=self.request.POST['username']))
+        try:
+            person = Person.objects.get(user=User.objects.get(
+                username=self.request.POST['username']))
+        except:
+            return render(request, 'users/register.html')
+
         department = self.request.POST['department']
         rank = self.request.POST['rank']
         office_address = self.request.POST['office_address']

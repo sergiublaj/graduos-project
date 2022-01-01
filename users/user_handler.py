@@ -64,3 +64,15 @@ class PasswordHandler(Handler):
             messages.error(self.request, 'Passwords do not match!')
 
             return render(self.request, 'users/register.html')
+
+class BirthDayHandler(Handler):
+    def __init__(self, age, request):
+        super(BirthDayHandler, self).__init__()
+        self.age = age
+        self.request = request
+
+    def handle(self):
+        if age<18:
+            user.delete()
+            messages.error(request, 'You must be at least 18 years old!')
+            return render(self.request, 'users/register.html')
