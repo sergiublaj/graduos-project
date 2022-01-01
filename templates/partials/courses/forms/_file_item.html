@@ -5,7 +5,7 @@
 {% if course and file %}
 	<td><a href={% url 'download_file' course.id file.id %}>{{file.filename}}</a></td>
 
-	<td>{{file.filecontent.size}} kB</td>
+	<td>{{file.filecontent.size}} bytes</td>
 
 	<td>{{file.date | timesince}}</td>
 
