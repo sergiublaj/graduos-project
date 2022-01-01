@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block title %}| Dashboard{% endblock title %} 
+{% block content %}
+
+{% include 'partials/modals/_leave_course_modal.html' %}
+{% include 'partials/modals/_delete_course_modal.html' %}
+
+{% if course and professor_users %}
+<div class="left_navbar">
+   <div id="wrapper">
+      
+      {% include 'partials/courses/_course_menu.html' %}
+      
+      <div id="page-content-wrapper">
+         <div class="row">
+            <div class="row">
+               <div class="col">
+                  {% if course.photo %}
+                     <img class="card-img-top course-photo" src="{{course.photo.url}}" alt="course-photo" style=" margin-bottom: 10px;">
+                  {% else %}
+                     <i class="fas fa-book fa-fw fa-7x"></i>
+                  {% endif %}
+               </div>
+               <div class="col-lg-9" id="course_home">
+                  <a id="Home_id"><h3>{{course.name}}</h3></a>
+                  <p>{{course.description}}</p>
+               </div>
+            </div>
+         </div>
+
+         <hr>
+
+         <div id="files">
+            <div class="row">
+               <i class="col-1 fas fa-file fa-2x"></i>
+               <a id="Files_id" class="col" style="text-decoration: none"><h3>Files</h3></a>
+            </div>
+            
+            {% include 'partials/courses/forms/_files_form.html' %}
+
+            <table class="table table-striped">
+               <thead>
+                  <tr>
+                     <th>No.</th>
+                     <th>File</th>
+                     <th>Size</th>
+                     <th>Modified</th>
+                     {% if request.user in professor_users %}
+                        <th>Actions</th>
+                     {% endif %}
+                  </tr>
+               </thead>
+
+               <tbody>
+               {% if course_files %}
+                  {% for file in course_files %}
+                  <tr>
+                     <td>{{forloop.counter}}</td>
+                     {% include 'partials/courses/forms/_file_item.html' %}
+                  </tr>
+                  {% endfor %}
+               {% else %}
+                  <td colspan="{% if request.user in professor_users%} 5 {% else %} 4 {% endif %}">No files have been added yet.</td>
+               {% endif %}
+               </tbody>
+            </table>
+         </div>
+
+         <hr>
+
+         <div id="assignments">
+            <div class="row">
+               <i class="col-1 fas fa-bullhorn fa-2x"></i>
+               <a id="Assignments_id" class="col" style="text-decoration: none"><h3>Assignments</h3></a>
+            </div>
+         </div>
+
+         {% include 'partials/courses/forms/_assignments_form.html' %}
+
+            <table class="table table-striped">
+               <thead>
+                  <tr>
+                     <th>No.</th>
+                     <th>File</th>
+                     <th>Due</th>
+                     <th>Percentage</th>
+                     {% if request.user in professor_users %}
+                        <th>Actions</th>
+                     {% else %}
+                        <th>Status</th>
+                     {% endif %}
+                  </tr>
+               </thead>
+
+               <tbody>
+                  {% if request.user in professor_users %}
+                     {% if professor_assignments %}
+                        {% for assignment in professor_assignments %}
+                           <tr>
+                              <td>{{forloop.counter}}</td>
+                              {% include 'partials/courses/forms/_assignment_item_professor.html' %}
+
+                              {% for submitted_assignment in student_assignments %}
+                                 {% if assignment == submitted_assignment.assignment %}
+                                    <tr>
+                                       {% include 'partials/courses/forms/_assignment_item_submitted.html' %}
+                                    </tr>
+                                 {% endif %}
+                              {% endfor %}
+                           </tr>
+                        {% endfor %}
+                     {% else %}
+                        <td colspan="5">No assignments have been added yet.</td>
+                     {% endif %}
+                  {% else %}
+                     {% if student_assignments %}
+                        {% for assignment in student_assignments %}
+                           {% if request.user == assignment.student.person.user%}
+                              <tr>
+                                 <td>{{forloop.counter}}</td>
+                                 {% include 'partials/courses/forms/_assignment_item_student.html' %}
+                              </tr>
+                           {% endif %}
+                        {% endfor %}
+                     {% else %}
+                        <td colspan="5">No assignments have been added yet.</td>
+                     {% endif %}
+                  {% endif %}
+               </tbody>
+            </table>
+
+         <hr>
+
+         <div class="col-lg-24" id="participants">
+            <div class="row">
+               <i class="col-1 fas fa-users fa-2x"></i>
+               <a id="Participants_id" class="col" style="text-decoration: none"><h3>Participants</h3></a>
+            </div>
+
+            {% include 'partials/courses/forms/_participants_form.html' %}
+
+            <table class="table table-striped">
+               <thead>
+                  <tr>
+                     <th colspan="2">Personal information</th>
+                     <th>Joined</th>
+                     <th>Last online</th>
+                     {% if request.user in professor_users %}
+                        <th>Actions</th>
+                     {% endif %}
+                  </tr>
+               </thead>
+
+               <tbody>
+                  {% for participant in course.professors.all %}
+                     {% include 'partials/courses/forms/_participant_item.html' %}
+                  {% endfor %}
+                  
+                  {% for participant in course.students.all %}
+                     {% include 'partials/courses/forms/_participant_item.html' %}
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+
+
+
+         <input type="hidden" id="current_course_id" name="course_id" value={{course.id}}>
+         <input type="hidden" id="current_file_id" name="file_id" value="0">
+         <input type="hidden" id="current_assignment_id" name="assignment_id" value="0">
+         <input type="hidden" id="current_participant_id" name="participant_id" value="0">
+
+
+
+      </div>
+   </div>
+</div>
+{% endif %}
+
+{% endblock %}

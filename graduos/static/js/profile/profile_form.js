@@ -11,7 +11,11 @@ $('#form_profile_edit_button').on('click', () => {
     $('#profile-photo-div').append(changePicture);
 
     let saveButton = '<button id="form_profile_save_button" class="btn btn-primary"> <i class="fas fa-save"></i> Save </button>';
+<<<<<<< HEAD
     let cancelButton = '<button id="form_profile_cancel_button" class="btn btn-danger"> <i class="fas fa-minus-circle"></i> Cancel </button>';
+=======
+    let cancelButton = '<button id="form_profile_cancel_button" class="btn btn-danger" type="button"> <i class="fas fa-minus-circle"></i> Cancel </button>';
+>>>>>>> origin/raul
  
     let formButtonsArea = $('.form-buttons-area');
     formButtonsArea.append(saveButton);

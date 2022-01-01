@@ -4,20 +4,23 @@
       <div class="modal-header">
         <h5 class="modal-title">Leave course</h5>
       </div>
-      <div class="modal-body">
-        <i class="fa fa-question-circle fa-3x align-middle"></i>
-        <span id="leave_course_name_span"></span>
+      <div class="modal-body row">
+        <div class="col-2">
+          <i class="fa fa-question-circle fa-3x align-middle"></i>
+        </div>
+        <div class="col-8">
+          <span id="leave_course_name_span"></span>
+        </div>
       </div>
       <div class="modal-footer">     
         <a href="javascript:{
           let course_id = document.getElementById('current_course_id').value;
-          console.log(document.getElementById('leave_course_id'));
           document.getElementById('leave_course_id').value = course_id;
           document.getElementById('leave_course').submit();
         }" class="btn btn-primary">Leave</a>
         <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</a>
 
-        <form id="leave_course" action="{% url 'leave_course' 0 %}" method="POST">
+        <form id="leave_course" action="{% url 'leave_course' %}" method="POST">
           {% csrf_token %}
           <input type="hidden" id="leave_course_id" name="course_id">
         </form>

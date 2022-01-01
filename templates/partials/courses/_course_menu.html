@@ -1,0 +1,89 @@
+{% if course %}
+<div id="sidebar-wrapper">
+	<ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+		<li class="active">
+			<a href="#Home_id"
+				><span class="fa-stack fa-lg pull-left"
+					><i class="fas fa-home fa-stack-1x" aria-hidden="true"></i
+				></span>
+				Course Home
+			</a>
+		</li>
+		<li>
+			<a href="#Files_id"
+				><span class="fa-stack fa-lg pull-left"
+					><i class="fas fa-file fa-stack-1x" aria-hidden="true"></i
+				></span>
+				Files
+			</a>
+		</li>
+		<li>
+			<a href="#Assignments_id"
+				><span class="fa-stack fa-lg pull-left"
+					><i class="fas fa-bullhorn fa-stack-1x" aria-hidden="true"></i
+				></span>
+				Assignments
+			</a>
+		</li>
+		<li>
+			<a href="#Participants_id">
+				<span class="fa-stack fa-lg pull-left"
+					><i class="fas fa-users fa-stack-1x" aria-hidden="true"></i
+				></span>
+				Participants
+			</a>
+		</li>
+		<li>
+			<a href="{% url 'view_messages' course.id %}"
+				><span class="fa-stack fa-lg pull-left"
+					><i class="fas fa-comments fa-stack-1x" aria-hidden="true"></i
+				></span>
+				Forum
+			</a>
+		</li>
+		<li>
+			{% if request.user in professor_users %}
+			<a
+				href="javascript:{
+				document.getElementById('delete_course_name_span').textContent = `Are you sure you want to delete course {{course.name}}?`;
+				document.getElementById('delete_course_{{course.id}}').click();
+			 }"
+				><span class="fa-stack fa-lg pull-left"
+					><i class="fas fa-trash fa-stack-1x" aria-hidden="true"></i
+				></span>
+				Delete
+			</a>
+			<button
+				type="button"
+				id="delete_course_{{course.id}}"
+				class="btn btn-primary"
+				data-bs-toggle="modal"
+				data-bs-target="#delete_course_modal"
+				style="display: none"
+				value=""
+			></button>
+			{% else %}
+			<a
+				href="javascript:{
+				document.getElementById('leave_course_name_span').textContent = `Are you sure you want to leave course {{course.name}}?`;
+				document.getElementById('leave_course_{{course.id}}').click();
+			 }"
+				><span class="fa-stack fa-lg pull-left"
+					><i class="fas fa-sign-out fa-stack-1x" aria-hidden="true"></i
+				></span>
+				Leave
+			</a>
+			<button
+				type="button"
+				id="leave_course_{{course.id}}"
+				class="btn btn-primary"
+				data-bs-toggle="modal"
+				data-bs-target="#leave_course_modal"
+				style="display: none"
+				value=""
+			></button>
+			{% endif %}
+		</li>
+	</ul>
+</div>
+{% endif %}

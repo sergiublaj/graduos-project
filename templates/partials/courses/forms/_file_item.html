@@ -1,0 +1,25 @@
+{% load humanize %}
+
+{% include 'partials/modals/_delete_file_modal.html' %}
+
+{% if course and file %}
+	<td><a href={% url 'download_file' course.id file.id %}>{{file.filename}}</a></td>
+
+	<td>{{file.filecontent.size}} bytes</td>
+
+	<td>{{file.date | timesince}}</td>
+
+	{% if request.user in professor_users%}
+		<td>
+			<div class="col-1 text-center">
+				<a href="javascript:{
+				document.getElementById('current_file_id').value = {{file.id}};
+				document.getElementById('delete_file_name_span').textContent = `Are you sure you want to delete file {{file.filename}}?`;
+
+				document.getElementById('delete_file_{{file.id}}').click();
+				}"><i class="fas fa-eraser fa-2x" aria-hidden="true"></i></a>
+				<button type="button" id="delete_file_{{file.id}}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delete_file_modal" style="display: none;" value=""></button>
+			</div>
+		</td>
+	{% endif %}
+{% endif %}
