@@ -246,7 +246,11 @@ def grade_submission(request, course_id, assignment_id, submission_id):
     
     mark = 0
     try:
+<<<<<<< HEAD
         student_assignments = Student_Assignment.objects.filter(student = submission.student).get(course = course)
+=======
+        student_assignments = Student_Assignment.objects.filter(student = submission.student,assignment__course=course)
+>>>>>>> origin/anamaria
         
         for student_assignment in student_assignments:
             mark += student_assignment.grade * student_assignment.assignment.percentage / 100

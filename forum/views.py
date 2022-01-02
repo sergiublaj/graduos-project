@@ -31,9 +31,11 @@ def send_message(request, course_id):
     try:
         user = request.user
         content = request.POST['content']
-        post = Post.objects.create(author=user, post_content=content, course_id=course_id)
+        image = request.user.person.photo
+        post = Post.objects.create(author=user, post_content=content, course_id=course_id, image=image)
         post.save()
     except:
+        print("Exception")
         pass
 
     return redirect('view_messages', course_id=course_id)

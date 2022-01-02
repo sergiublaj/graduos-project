@@ -2,8 +2,9 @@ from django.contrib.auth.models import User
 
 from users.models import Person
 from users.user_factory import UserFactory
-from users.user_handler import UserHandler, UsernameHandler, EmailHandler, PasswordHandler
-
+from users.user_handler import UserHandler, UsernameHandler, EmailHandler, PasswordHandler, BirthDayHandler
+from datetime import date
+import datetime
 
 class UserBuilder:
     def __init__(self, request):
@@ -47,6 +48,12 @@ class UserBuilder:
         address = self.request.POST['address']
         birth_date = self.request.POST['birth_date']
         gender = self.request.POST['gender']
+
+        birthdate = datetime.datetime.strptime(birth_date, '%Y-%m-%d')
+        age = (datetime.datetime.now() - birthdate).days / 365
+
+        user_handler = UserHandler()
+        user_handler.add_handler(BirthDayHandler(age, self.request))
 
         person = Person.objects.create(user=user, photo=photo, phone=phone,
                                        country=country, address=address, birth_date=birth_date, gender=gender)

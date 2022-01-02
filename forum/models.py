@@ -11,6 +11,6 @@ class Post(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     post_content = models.CharField(max_length=5000)
     timestamp = models.DateTimeField(default=datetime.now)
-
+    image = models.ImageField(upload_to='images/users/%Y/', blank=True)
 
 
