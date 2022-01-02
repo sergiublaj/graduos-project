@@ -1,3 +1,3 @@
 # graduos-project
 
-Version 1.1.10
+Version 1.3.2

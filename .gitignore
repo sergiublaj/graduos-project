@@ -130,7 +130,12 @@ dmypy.json
 
 # Pyre type checker
 <<<<<<< HEAD
+<<<<<<< HEAD
 .pyre/
 =======
 .pyre/
 >>>>>>> 95f4f7d8b2dbfe38aff590b16199fc3ce68396e9
+=======
+.pyre/
+
+>>>>>>> master

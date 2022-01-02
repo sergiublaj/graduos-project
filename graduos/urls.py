@@ -12,6 +12,7 @@ urlpatterns = [
     path('grades/', include('grades.urls')),
     path('invitations/', include('invitations.urls')),
     path('notifications/', include('notifications.urls')),
+    path('forum/', include('forum.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
