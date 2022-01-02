@@ -100,19 +100,11 @@ def view_course(request, course_id):
     }
 
     return render(request, 'courses/course.html', context)
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/anamaria
 
 def join_course(request):
     if request.method != 'POST':
         return redirect('dashboard')
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/anamaria
     try:
         student = Student.objects.get(
             person=Person.objects.get(user=request.user))
