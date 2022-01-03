@@ -455,3 +455,5 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, p, blockqu
   -moz-transition: all 500ms ease;
   transition: all 500ms ease;
 }
+
+.hidden { display: none; }

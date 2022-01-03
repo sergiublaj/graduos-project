@@ -45,3 +45,21 @@ $('#number1').jQuerySimpleCounter({end: 13,duration: 3000});
 $('#number2').jQuerySimpleCounter({end: 65,duration: 3000});
 $('#number3').jQuerySimpleCounter({end: 50405, duration: 10000});
 $('#number4').jQuerySimpleCounter({end: 305,duration: 2500});
+
+document.getElementById("yes").addEventListener('change', function() {
+   defineSetting(this.value)
+})
+document.getElementById("no").addEventListener('change', function() {
+  defineSetting(this.value)
+})
+function defineSetting(setting) {
+  if (setting == "True") {
+    document.getElementById("stud_div").classList.remove('hidden');
+    document.getElementById("prof_div").classList.add('hidden');
+  } else {
+     document.getElementById("stud_div").classList.add('hidden');
+     document.getElementById("prof_div").classList.remove('hidden');
+  }
+}
+
+window.onload=function(){defineSetting("True")}
