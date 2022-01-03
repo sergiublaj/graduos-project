@@ -79,4 +79,4 @@ class BirthDayHandler(Handler):
         if self.age<18:
             self.user.delete()
             messages.error(self.request, 'You must be at least 18 years old!')
-            return render(self.request, 'templates/users/register.html')
+            return render(self.request, 'users/register.html')

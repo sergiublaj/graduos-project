@@ -122,7 +122,7 @@ def profile(request):
         for course in student.courses.all():
             total_credits += course.credits_no
             try:
-                if grades.get(course=course).grade > 5:
+                if grades.get(course=course).grade >= 5:
                     accumulated_credits += course.credits_no
             except:
                 pass
