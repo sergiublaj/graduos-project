@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.shortcuts import render
 
 from users.models import Person, Professor, Student
 
@@ -19,7 +20,7 @@ class UserFactory:
             person = Person.objects.get(user=User.objects.get(
                 username=self.request.POST['username']))
         except:
-            return render(request, 'users/register.html')
+            return render(self.request, 'users/register.html')
 
         identification_no = self.request.POST['identification_no']
         university = self.request.POST['university']
@@ -37,7 +38,7 @@ class UserFactory:
             person = Person.objects.get(user=User.objects.get(
                 username=self.request.POST['username']))
         except:
-            return render(request, 'users/register.html')
+            return render(self.request, 'users/register.html')
 
         department = self.request.POST['department']
         rank = self.request.POST['rank']

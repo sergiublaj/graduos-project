@@ -12,6 +12,7 @@ from users.user_observer import UserObservable, UserObserver
 
 
 def register(request):
+    print("Salut")
     if request.user.is_authenticated:
         return redirect('dashboard')
 
@@ -29,7 +30,9 @@ def register(request):
     user_observable.set_state('Successfully registered! You can now log in.')
     user_observable.notify_observers()
 
+
     return create_notification(request, 'login', notification)
+
 
 
 def get_register_notification(request):
@@ -114,6 +117,16 @@ def profile(request):
     try:
         student = Student.objects.get(person=person)
         grades = Grade.objects.filter(student=student)
+        total_credits = 0
+        accumulated_credits=0
+        for course in student.courses.all():
+            total_credits += course.credits_no
+            try:
+                if grades.get(course=course).grade > 5:
+                    accumulated_credits += course.credits_no
+            except:
+                pass
+
         is_student = True
         professor = None
     except:
@@ -121,13 +134,17 @@ def profile(request):
         is_student = False
         student = None
         grades = None
+        total_credits=0
+        accumulated_credits = 0
 
     context = {
         'is_student': is_student,
         'person': person,
         'student': student,
         'professor': professor,
-        'grades': grades
+        'grades': grades,
+        'total_credits':total_credits,
+        'accumulated_credits':accumulated_credits
     }
 
     return render(request, 'users/profile.html', context)

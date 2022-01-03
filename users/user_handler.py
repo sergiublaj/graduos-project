@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 class Handler:
@@ -14,6 +14,7 @@ class UserHandler(Handler):
     def __init__(self):
         super(UserHandler, self).__init__()
         self.handlers = []
+        self.error = 0
 
     def handle(self):
         for handler in self.handlers:
@@ -33,8 +34,8 @@ class UsernameHandler(Handler):
     def handle(self):
         if self.all_users.filter(username=self.username).exists():
             messages.error(self.request, 'Username already taken!')
-
-            return render(self.request, 'users/register.html')
+            self.error = -1
+            #return render(self.request, 'users/register.html')
 
 
 class EmailHandler(Handler):
@@ -61,18 +62,21 @@ class PasswordHandler(Handler):
 
     def handle(self):
         if self.password != self.password2:
+            print("Reached here - password handler")
             messages.error(self.request, 'Passwords do not match!')
 
-            return render(self.request, 'users/register.html')
+            return redirect('login')
+
 
 class BirthDayHandler(Handler):
-    def __init__(self, age, request):
+    def __init__(self, user, age, request):
         super(BirthDayHandler, self).__init__()
+        self.user = user
         self.age = age
         self.request = request
 
     def handle(self):
-        if age<18:
-            user.delete()
-            messages.error(request, 'You must be at least 18 years old!')
-            return render(self.request, 'users/register.html')
+        if self.age<18:
+            self.user.delete()
+            messages.error(self.request, 'You must be at least 18 years old!')
+            return render(self.request, 'templates/users/register.html')

@@ -26,7 +26,7 @@ def view_messages(request, course_id):
 
 def send_message(request, course_id):
     if request.method != 'POST':
-        return redirect('view_messages',course_id=course_id)
+        return redirect('view_course', course_id=course_id)
 
     try:
         user = request.user

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.shortcuts import render
 
 from users.models import Person
 from users.user_factory import UserFactory
@@ -9,6 +10,8 @@ import datetime
 class UserBuilder:
     def __init__(self, request):
         self.request = request
+
+
 
     def register_account(self):
         self.register_user()
@@ -34,6 +37,10 @@ class UserBuilder:
         user_handler.add_handler(UsernameHandler(username, all_users, self.request))
         user_handler.add_handler(EmailHandler(email, all_users, self.request))
         user_handler.add_handler(PasswordHandler(password, password2, all_users, self.request))
+        user_handler.handle()
+
+        if user_handler.error != 0:
+            return
 
         user = User.objects.create_user(first_name=first_name, last_name=last_name,
                                         username=username, email=email)
@@ -41,7 +48,11 @@ class UserBuilder:
         user.save()
 
     def register_person(self):
-        user = User.objects.get(username=self.request.POST['username'])
+        try:
+            user = User.objects.get(username=self.request.POST['username'])
+        except:
+            return render(self.request, 'users/register.html')
+
         photo = self.request.FILES['photo']
         phone = self.request.POST['phone']
         country = self.request.POST['country']
@@ -53,7 +64,8 @@ class UserBuilder:
         age = (datetime.datetime.now() - birthdate).days / 365
 
         user_handler = UserHandler()
-        user_handler.add_handler(BirthDayHandler(age, self.request))
+        user_handler.add_handler(BirthDayHandler(user, age, self.request))
+        user_handler.handle()
 
         person = Person.objects.create(user=user, photo=photo, phone=phone,
                                        country=country, address=address, birth_date=birth_date, gender=gender)

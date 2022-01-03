@@ -16,4 +16,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler404 = 'graduos.views.handle_not_found_error'
+handler404 = 'graduos.views.handle_client_error'
+handler500 = 'graduos.views.handle_server_error'
