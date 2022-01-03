@@ -25,58 +25,50 @@ class UserHandler(Handler):
 
 
 class UsernameHandler(Handler):
-    def __init__(self, username, all_users, request):
+    def __init__(self, username, all_users):
         super(UsernameHandler, self).__init__()
         self.username = username
         self.all_users = all_users
-        self.request = request
+        self.error=0
 
     def handle(self):
         if self.all_users.filter(username=self.username).exists():
-            messages.error(self.request, 'Username already taken!')
             self.error = -1
-            #return render(self.request, 'users/register.html')
+
 
 
 class EmailHandler(Handler):
-    def __init__(self, email, all_users, request):
+    def __init__(self, email, all_users):
         super(EmailHandler, self).__init__()
         self.email = email
         self.all_users = all_users
-        self.request = request
+        self.error = 0
 
     def handle(self):
         if self.all_users.filter(email=self.email).exists():
-            messages.error(self.request, 'Email already taken!')
-
-            return render(self.request, 'users/register.html')
+            self.error = -2
 
 
 class PasswordHandler(Handler):
-    def __init__(self, password, password2, all_users, request):
+    def __init__(self, password, password2):
         super(PasswordHandler, self).__init__()
         self.password = password
         self.password2 = password2
-        self.all_users = all_users
-        self.request = request
+        self.error = 0
 
     def handle(self):
         if self.password != self.password2:
-            print("Reached here - password handler")
-            messages.error(self.request, 'Passwords do not match!')
-
-            return redirect('login')
+            self.error=-3
 
 
 class BirthDayHandler(Handler):
-    def __init__(self, user, age, request):
+    def __init__(self, age):
         super(BirthDayHandler, self).__init__()
-        self.user = user
         self.age = age
-        self.request = request
+        self.error=0
 
     def handle(self):
         if self.age<18:
-            self.user.delete()
-            messages.error(self.request, 'You must be at least 18 years old!')
-            return render(self.request, 'users/register.html')
+            self.error=-4
+
+

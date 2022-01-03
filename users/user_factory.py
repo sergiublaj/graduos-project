@@ -20,6 +20,7 @@ class UserFactory:
             person = Person.objects.get(user=User.objects.get(
                 username=self.request.POST['username']))
         except:
+            print("Register student")
             return render(self.request, 'users/register.html')
 
         identification_no = self.request.POST['identification_no']
@@ -38,6 +39,7 @@ class UserFactory:
             person = Person.objects.get(user=User.objects.get(
                 username=self.request.POST['username']))
         except:
+            print("Except professor")
             return render(self.request, 'users/register.html')
 
         department = self.request.POST['department']

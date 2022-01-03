@@ -12,7 +12,7 @@ from users.user_observer import UserObservable, UserObserver
 
 
 def register(request):
-    print("Salut")
+
     if request.user.is_authenticated:
         return redirect('dashboard')
 
@@ -21,7 +21,11 @@ def register(request):
 
     user_builder = UserBuilder(request)
 
-    user_builder.register_account()
+    error, message = user_builder.register_account()
+
+    if error != 0 :
+            messages.error(request,message)
+            return render(request,'users/register.html')
 
     notification = get_register_notification(request)
 
@@ -29,7 +33,6 @@ def register(request):
     user_observable.add_observer(UserObserver(request))
     user_observable.set_state('Successfully registered! You can now log in.')
     user_observable.notify_observers()
-
 
     return create_notification(request, 'login', notification)
 
