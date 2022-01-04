@@ -26,7 +26,9 @@ class UserBuilder:
 
         user_factory = UserFactory(self.request, self.request.POST['is_student'])
 
-        user_factory.register_user()
+        error,message = user_factory.register_user()
+        if error!=0:
+            return (error,message)
 
         return (0, "'Successfully registered! You can now log in.'")
 
@@ -86,7 +88,7 @@ class UserBuilder:
         age = (datetime.datetime.now() - birthdate).days / 365
 
         user_handler = UserHandler()
-        user_handler.add_handler(BirthDayHandler(age))
+        user_handler.add_handler(BirthDayHandler(user,age))
         user_handler.handle()
         for handler in user_handler.handlers:
              if handler.error == -4:

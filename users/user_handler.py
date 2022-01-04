@@ -62,13 +62,30 @@ class PasswordHandler(Handler):
 
 
 class BirthDayHandler(Handler):
-    def __init__(self, age):
+    def __init__(self,user, age):
         super(BirthDayHandler, self).__init__()
         self.age = age
         self.error=0
+        self.user=user
 
     def handle(self):
         if self.age<18:
+            self.user.delete()
             self.error=-4
+
+class IdentificationNoHandler(Handler):
+    def __init__(self, identification_no, all_students,user,person):
+        super(IdentificationNoHandler, self).__init__()
+        self.identification_no = identification_no
+        self.user=user
+        self.person = person
+        self.all_students = all_students
+        self.error = 0
+
+    def handle(self):
+        if self.all_students.filter(identification_no=self.identification_no).exists():
+            self.user.delete()
+            self.person.delete()
+            self.error = -5
 
 
